@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf8">
+<link type="text/css" href="login.css" rel="stylesheet" />
+</head>
+<body>
+	<form name='login' action='login_ing.php' method='post' id='login_form'>
+ 
+	<table border='1' cellspacing='0' cellpadding='0' id='login_table'>
+		<tr>
+		<td align="center"> 아 이 디 </td>
+		<td><input type='text' name='id' size='20'></td>
+		</tr>
+		<tr>
+		<td align="center"> 비밀번호 </td>
+		<td><input type='password' name='pw' size='20'></td>
+		</tr>
+		<tr>
+		<td colspan='2' align='center'><input type='submit' value='Login'>&nbsp;
+		<input type='button' value='Join'
+		onClick="document.getElementById('join_form').style.display='block',
+		document.getElementById('login_form').style.display='none'
+		;"></td>
+		</tr>
+	</table>
+	</form>
+
+
+	<form name='join' action='join_ing.php' method='post' id='join_form'>
+
+	<table border='1' cellspacing="0" cellpadding="0" id='join_table'>
+	<tr>
+	<td align="center">	id </td>
+	<td><input type="text" name='id_reg' size='20'></td>
+	</tr>
+
+	<tr>
+	<td align="center"> password </td>
+	<td><input type="password" name='pw_reg' size='20'></td>
+	</tr>
+
+	<tr>
+	<td align="center"> name </td>
+	<td><input type="text" name='name_reg' size='20'></td>
+	</tr>
+
+	<tr>
+	<td colspan='2' align="center"><input type='reset' value='reset'>&nbsp;<input type='submit' value='Join now!' 
+	onclick="document.getElementById('join_form').style.display='none',
+		document.getElementById('login_form').style.display='block'
+		;"></td>
+	</table>
+	</form>
+
+
+	<script type="text/javascript" src="login.js"></script>
+
+</body>
+</html>
