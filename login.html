@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <style type="text/css">
+
+        .start {
+            display: block;
+        }
+        #start1 {
+            display: block;
+        }
+        #start2 {
+            display: block;
+        }
+        #sign {
+            display: none;
+        }
+
+
+        </style>
+    </head>
+    <body>
+        <form action="login_process.php" method="POST" id="start1" class="start">
+            <p><label>아이디</label><input type="text" name="id" /></p>
+            <p><label>비밀번호</label><input type="text" name="pwd" /></p>
+        <input type="submit" value="로그인" />
+        </form>
+<!--
+        <div><input type="button" value="회원가입" id="start2" class="start" onClick="document.getElementById('sign').style.display='block',document.getElementById('start1').style.display='none',document.getElementById('start2').style.display='none';" /></div>
+-->
+        <div><input type="button" value="회원가입" id="start2" class="start" onClick="window.start_click();" /></div> 
+
+
+        <form action="sign_up.php" method="POST" id="sign">
+            <p><label>아이디</label><input type="text" name="id" /></p>
+            <p><label>비밀번호</label><input type="text" name="pwd" /></p>
+            <p><label>이름</label><input type="text" name="name" /></p>       
+        <input type="submit" value="가입완료" />
+        </form>
+
+        <script type="text/javascript">
+
+        function start_click(){
+                    var start1= document.getElementById('start1');
+                    start1.style.display='none';
+                    var start2= document.getElementById('start2');
+                    start2.style.display='none';
+                    var sign= document.getElementById('sign');
+                    sign.style.display='block';
+/*                    var start= document.getElementsByClassName('start');
+                    start.style.display='none';*/        
+        }
+
+
+        </script>
+    </body>
+</html>
