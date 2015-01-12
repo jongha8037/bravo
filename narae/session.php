@@ -5,8 +5,14 @@ if(!isset($_SESSION['is_login'])){
 }
 ?>
 <html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf8">
+
+	</head>
+
     <body>
-        Welcome. <?php echo $_SESSION['name'];?><br />
-        <a href="./logout.php">Logout</a>    
+        <?php echo $_SESSION['name'];?>님 환영합니다<br />
+        <a href="./logout.php">로그아웃</a>    
     </body>
 </html>
+
