@@ -1,59 +1,64 @@
 <html>
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=utf8">
-<link type="text/css" href="login.css" rel="stylesheet" />
-</head>
-<body>
-	<form name='login' action='login_ing.php' method='post' id='login_form'>
- 
-	<table id='login_table'>
-		<tr>
-		<td align="center"> 아 이 디 </td>
-		<td><input type='text' name='id' size='20'></td>
-		</tr>
-		<tr>
-		<td align="center"> 비밀번호 </td>
-		<td><input type='password' name='pw' size='20'></td>
-		</tr>
-		<tr>
-		<td colspan='2' align='center'><input type='submit' value='Login'>&nbsp;
-		<input type='button' value='Join'
-		onClick="document.getElementById('join_form').style.display='block',
-		document.getElementById('login_form').style.display='none'
-		;"></td>
-		</tr>
-	</table>
-	</form>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf8">
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link type="text/css" href="login.css" rel="stylesheet" />
+	</head>
+	<body>
+
+		<form class="form-horizontal" role="form" action='login_ing.php' method='post' id='login_form'>
+			<div class="form-group">
+				<label for="inputEmail1" class="col-lg-2 control-label">&nbsp;&nbsp;아이디</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" placeholder="Id" name='id' style="width:250px">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword1" class="col-lg-2 control-label">&nbsp;&nbsp;비밀번호</label>
+				<div class="col-lg-10">
+					<input type="password" class="form-control" placeholder="Password" name='pw' style="width:250px">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+					<button type="submit" class="btn btn-default">Login</button>&nbsp;&nbsp;
+				<button type="button" class="btn btn-default" id='target1'>Join</button>  
+					
+				</div>
+			</div>
+		</form>
 
 
-	<form name='join' action='join_ing.php' method='post' id='join_form'>
+		<form class="form-horizontal" role="form" action='join_ing.php' method='post' id='join_form'>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">&nbsp;&nbsp;Id</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" placeholder="Id" name='id_reg' style="width:250px">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">&nbsp;&nbsp;Password</label>
+				<div class="col-lg-10">
+					<input type="password" class="form-control" placeholder="Password" name='pw_reg' style="width:250px">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">&nbsp;&nbsp;Name</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" placeholder="Name" name='name_reg' style="width:250px">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+					<button type="submit" class="btn btn-default">Join now!</button>&nbsp;&nbsp;
+				    <button type="reset" class="btn btn-default">Reset</button>  
+				</div>
+			</div>
+		</form>
 
-	<table border='1' cellspacing="0" cellpadding="0" id='join_table'>
-	<tr>
-	<td align="center">	id </td>
-	<td><input type="text" name='id_reg' size='20'></td>
-	</tr>
-
-	<tr>
-	<td align="center"> password </td>
-	<td><input type="password" name='pw_reg' size='20'></td>
-	</tr>
-
-	<tr>
-	<td align="center"> name </td>
-	<td><input type="text" name='name_reg' size='20'></td>
-	</tr>
-
-	<tr>
-	<td colspan='2' align="center"><input type='reset' value='reset'>&nbsp;<input type='submit' value='Join now!' 
-	onclick="document.getElementById('join_form').style.display='none',
-		document.getElementById('login_form').style.display='block'
-		;"></td>
-	</table>
-	</form>
-
-
-	<script type="text/javascript" src="login.js"></script>
-
-</body>
+		<script type="text/javascript" src="login.js"></script> 
+		<script src="//code.jquery.com/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/respond.js"></script>
+	</body>
 </html>

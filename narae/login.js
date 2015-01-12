@@ -1,31 +1,26 @@
-function join(){
+var target1 = document.getElementById('target1');
+var back = document.getElementById('back');
 
-	alert("eifenl");
-	/*hidden = !hidden;
-	
-	if(hidden) {
-		var join_form =document.getElementById('join_form');
-		join_form.style.display="block";
-	}*/
-}
-		
+function handler(event){
+//	var info = document.getElementById(event.srcElement.id);
 
-
-		/*
-		var join_form =document.getElementById('join_table');
-		join_form.style.display="block";    
-		
+	if(event.srcElement.id == 'target1'){
+		document.getElementById('join_form').style.display='block';
+		document.getElementById('login_form').style.display='none';
+	}else if(event.srcElement.id == 'back'){
+		history.go(-1);
 	}
+
 }
 
-function join_reg(){
-hidden = !hidden;
-	if(hidden) {
-		var login_form =document.getElementById('join_form');
-		login_form.style.display="none";
-		
-		var join_form =document.getElementById('login_form');
-		join_form.style.display="block";    
-		
+target1.addEventListener('click', handler);
+back.addEventListener('click', handler);
+
+
+
+/*
+else if(event.srcElement.id == 'target2'){
+		document.getElementById('join_form').style.display='none';
+		document.getElementById('login_form').style.display='block';
 	}
-}
+*/

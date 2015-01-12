@@ -3,7 +3,7 @@ session_start();
 
 $mysqli_hostname = "localhost";
 $mysqli_user = "root";
-$mysqli_password = "o1010l";
+$mysqli_password = "0308";
 $mysqli_database = "test";
 $prefix = "";
 $link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");

@@ -5,10 +5,13 @@ if(!isset($_SESSION['is_login'])){
 }
 ?>
 <html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf8">
+	</head>
     <body>
-        Welcome. <?php echo $_SESSION['name'];?><br />
-        <a href="./logout.php">Logout</a>&nbsp;
-        <a href="./modify.html">Modify</a>&nbsp;
-        <a href="./ok_bye.html">Ok bye... </a>  
+        <div><?php echo $_SESSION['name'];?> welcome!!!!</div>
+        <button><a href="./logout.php">Log out</a></button>    
+        <button><a href="./ok_bye.html">Bye...</a></button>
     </body>
 </html>
+
