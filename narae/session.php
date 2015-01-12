@@ -8,6 +8,7 @@ if(!isset($_SESSION['is_login'])){
     <body>
         Welcome. <?php echo $_SESSION['name'];?><br />
         <a href="./logout.php">Logout</a>&nbsp;
+        <a href="./modify.html">Modify</a>&nbsp;
         <a href="./ok_bye.html">Ok bye... </a>  
     </body>
 </html>
