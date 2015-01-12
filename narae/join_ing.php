@@ -2,10 +2,12 @@
 <?php
 $mysql_hostname = "localhost";
 $mysql_user = "root";
-$mysql_password = "o1010l";
-$mysql_database = "test";
+$mysql_password = "0308";
+$mysql_database = "php_sample";
 $prefix = "";
-$link = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or die("internal error1");
+var_dump('shit');
+//$link = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or die("internal error1");
+$link = mysql_connect('localhost', 'root', '0308') or die("internal error2 ");
 mysql_select_db($mysql_database, $link) or die("internal error2");
 $id=$_POST['id_reg'];
 $pw=$_POST['pw_reg'];
