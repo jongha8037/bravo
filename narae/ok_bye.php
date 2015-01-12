@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$mysqli_hostname = "localhost";
-$mysqli_user = "root";
-$mysqli_password = "0308";
-$mysqli_database = "test";
+$mysqli_hostname = $_ENV['MYSQL_HOST'];
+$mysqli_user = $_ENV['MYSQL_USER'];
+$mysqli_password = $_ENV['MYSQL_PSWD'];
+$mysqli_database = $_ENV['MYSQL_DB'];
 $prefix = "";
 $link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");
 mysqli_select_db($link, $mysqli_database) or die("internal error2");
