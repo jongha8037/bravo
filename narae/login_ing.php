@@ -2,18 +2,18 @@
 session_start();
 
 
-$mysql_hostname = "localhost";
-$mysql_user = "root";
-$mysql_password = "o1010l";
-$mysql_database = "test";
+$mysqli_hostname = "localhost";
+$mysqli_user = "root";
+$mysqli_password = "o1010l";
+$mysqli_database = "test";
 #$prefix = "";
-$link = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or die("internal error1");
-mysql_select_db($mysql_database, $link) or die("internal error2");
+$link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");
+mysqli_select_db($link, $mysqli_database) or die("internal error2");
 
 $query="select * from member where id='".$_POST['id']."'";
-$result1=mysql_query($query, $link) or die("wrong query");
-$tot=mysql_num_rows($result1);
-$rows=mysql_fetch_array($result1);
+$result1=mysqli_query($link, $query) or die("wrong query");
+$tot=mysqli_num_rows($result1);
+$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
 
 
 $db_id=$rows[id];
