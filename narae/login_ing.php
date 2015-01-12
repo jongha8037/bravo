@@ -1,6 +1,4 @@
-<meta http-equiv="Content-type" content="text/html; charset=utf8">
 <?php
-
 session_start();
 
 
@@ -8,7 +6,7 @@ $mysql_hostname = "localhost";
 $mysql_user = "root";
 $mysql_password = "o1010l";
 $mysql_database = "test";
-$prefix = "";
+#$prefix = "";
 $link = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or die("internal error1");
 mysql_select_db($mysql_database, $link) or die("internal error2");
 
@@ -35,7 +33,6 @@ if(!empty($id) && !empty($pw)){
         exit;
     }
 }
-echo '로그인 하지 못했습니다.';
-
-
+header("refresh:1;url=http://www.example.dev/login/login.html");
+echo 'Login Fail';
 ?>

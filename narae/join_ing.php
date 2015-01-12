@@ -1,4 +1,3 @@
-<meta http-equiv="Content-type" content="text/html; charset=utf8">
 <?php
 $mysql_hostname = "localhost";
 $mysql_user = "root";
@@ -15,14 +14,14 @@ $query1="select * from member where id='".$id."'";
 $result1=mysql_query($query1, $link) or die("wrong query1");
 $tot=mysql_num_rows($result1);
 if($tot>=1) {
-	 header("refresh:1;url=http://www.example.dev/login.html");
-	 echo "해당 아이디는 중복되었습니다.";
+	header("refresh:1;url=http://www.example.dev/login/login.html");
+	echo "Duplicated ID";
 	exit;
 }
 
 if(empty($id) or empty($pw) or empty($name)) {
-	 header("refresh:1;url=http://www.example.dev/login.html");
-	 echo "필드를 모두 입력해주세요.";
+	header("refresh:1;url=http://www.example.dev/login/login.html");
+	echo "Fill all Fields.";
 	exit;
 }
 
@@ -30,8 +29,17 @@ if(empty($id) or empty($pw) or empty($name)) {
 $query2="insert into member values('".$id."', '".$pw."', '".$name."')"; 
 $result2=mysql_query($query2, $link) or die("wrong query2");
 if ($result2=='true'){
-	header("refresh:1;url=http://www.example.dev/login.html");
+	header("refresh:1;url=http://www.example.dev/login/login.html");
 	 echo "SUCCESS";
 	exit;
 };
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf8">
+	<title></title>
+</head>
+<body>
+</body>
+</html>

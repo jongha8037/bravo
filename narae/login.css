@@ -5,3 +5,11 @@
 #join_form {
 	display: none;
 }
+
+#login_table {
+	border:1px solid green;
+	border-spacing:0px;
+	padding: 1em;
+	margin: 1em;
+	
+}
