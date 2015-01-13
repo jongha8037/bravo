@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-$mysqli_hostname = "localhost";
-$mysqli_user = "root";
-$mysqli_password = "o1010l";
-$mysqli_database = "test";
-$prefix = "";
+$mysqli_hostname = $_ENV['MYSQL_HOST'];
+$mysqli_user = $_ENV['MYSQL_USER'];
+$mysqli_password = $_ENV['MYSQL_PSWD'];
+$mysqli_database = $_ENV['MYSQL_DB'];
+
 $link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");
 mysqli_select_db($link, $mysqli_database) or die("internal error2");
 
@@ -32,17 +32,10 @@ else{
 	if(!($db_pw==$cur_pw)){
 		echo "Current password is not correct";
 		echo("<script>setTimeout(function(){location.href='http://www.example.dev/login/modify.html'} , 1000);</script>");
-	}
-	#$pw_sub=sha1($pw_sub);
-
-
-
-	elseif(!($new_pw==$ver_pw)) {
+	}else if(!($new_pw==$ver_pw)) {
 		echo "Check 'New password' and 'Verify new password' again";
 		echo("<script>setTimeout(function(){location.href='http://www.example.dev/login/modify.html'} , 1000);</script>"); 
-	}
-
-	else {
+	}else {
 	$query="update member set pass='".$ver_pw."' where id='".$id."'";
 	$result1=mysqli_query($link, $query) or die("fail");
 	echo "SUCCESS. Back to login page";

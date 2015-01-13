@@ -28,6 +28,7 @@ if(empty($id) or empty($pw) or empty($name)) {
 
 $query2="insert into member values('".$id."', '".$pw."', '".$name."')"; 
 $result2=mysqli_query($link, $query2) or die("wrong query2");
+
 if ($result2=='true'){
 	header("refresh:1;url=http://www.example.dev/login/login.html");
 	 echo "SUCCESS!!!!!";

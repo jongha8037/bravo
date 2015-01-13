@@ -5,7 +5,7 @@ $mysqli_hostname = $_ENV['MYSQL_HOST'];
 $mysqli_user = $_ENV['MYSQL_USER'];
 $mysqli_password = $_ENV['MYSQL_PSWD'];
 $mysqli_database = $_ENV['MYSQL_DB'];
-$prefix = "";
+
 $link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");
 mysqli_select_db($link, $mysqli_database) or die("internal error2");
 
@@ -23,23 +23,19 @@ $pw_sub=$_POST['pw_bye'];
 if(EMPTY($pw_sub)) {
 	echo "Enter the password";
 	echo("<script>setTimeout(function(){location.href='http://www.example.dev/login/ok_bye.html'} , 1000);</script>"); 
-	#header("refresh:1;url=http://www.example.dev/login/ok_bye.html");
 }
 
 $pw_sub=sha1($pw_sub);
 
 if($pw_sub==$db_pw) {
-$query="delete from member where id='".$_SESSION['id']."'";
-$result1=mysqli_query($link, $query) or die("fail");
-session_destroy();
-echo "SUCCESS. Back to login page";
-echo("<script>setTimeout(function(){location.href='http://www.example.dev/login/login.html'} , 1000);</script>"); 
-}
-
-else {
+	$query="delete from member where id='".$_SESSION['id']."'";
+	$result1=mysqli_query($link, $query) or die("fail");
+	session_destroy();
+	echo "SUCCESS. Back to login page";
+	echo("<script>setTimeout(function(){location.href='http://www.example.dev/login/login.html'} , 1000);</script>"); 
+}else {
 	echo "wrong password - cancellation fail";
 	echo("<script>setTimeout(function(){location.href='http://www.example.dev/login/ok_bye.html'} , 1000);</script>"); 
-	#header("refresh:1;url=http://www.example.dev/login/ok_bye.html");
 }
 
 ?>
