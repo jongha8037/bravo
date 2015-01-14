@@ -182,7 +182,7 @@ $board_num=$_GET["boardNo"];
 
     <tr align = "center"> 
             <td><?=$iArticleNo?></td>
-            <td align = "left"><a href="http://www.example.dev/board/receive.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$sSubject?></a></td>
+            <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$sSubject?></a></td>
             <td><?=$sReplyDepth?></td>
             <td>...</td>
             <td>Hit</td>
@@ -268,7 +268,7 @@ if($iNowBlock < $iTotalBlock) {
 <?  
 } 
 ?>         
-<a href="http://www.example.dev/board/BoardInsert.php">&nbsp;&nbsp;write</a>
+<a href="http://www.example.dev/board/write.php">&nbsp;&nbsp;write</a>
 
 <?php
  require ("./center_end.php");
