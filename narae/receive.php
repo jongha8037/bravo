@@ -1,17 +1,12 @@
-  <?php
-//ob_Start();
-//Session_Start();
+<?php
+session_Start();
 
 //include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
 //include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
 
-$mysqli_hostname = $_ENV['MYSQL_HOST'];
-$mysqli_user = $_ENV['MYSQL_USER'];
-$mysqli_password = $_ENV['MYSQL_PSWD'];
-$mysqli_database = $_ENV['MYSQL_DB'];
-
-$link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");
-mysqli_select_db($link, $mysqli_database) or die("internal error2");
+require ("./abstract.php");
+$db=new DBlayer;
+$db->login();
 $iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
@@ -118,9 +113,12 @@ $sTableName = "aa"
   <div class="container">
 
   <?php
-  require ("./BoardList_iframe_head.php");
+  require ("./top.php");
+  require ("./left.php");
+  require ("./center_start.php");
 
-//include('abstract.php');
+
+
 
 $no=$_GET['no'];
 $table="aa";
@@ -128,7 +126,7 @@ $table="aa";
 
 
 		$query="select * from ".$table." where no=".$no;
-		$result1=mysqli_query($link, $query	) or die("wrong query"); #error
+	 $result1=mysqli_query($db->link, $query ) or die("wrong query"); #error
 		$tot=mysqli_num_rows($result1);
 		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
 
@@ -139,7 +137,9 @@ $table="aa";
 		echo "num : ".$db_num."<br>";
 		echo "con : ".$db_con. "<br>";
 
-require ("./BoardList_iframe_foot.php");
+ require ("./center_end.php");
+  require ("./right.php"); 
+  require ("./bottom.php");  
   ?>
 
 

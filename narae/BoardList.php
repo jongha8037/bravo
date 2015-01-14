@@ -1,13 +1,12 @@
 <?php
-//ob_Start();
-//Session_Start();
+Session_Start();
 
 //include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
 //include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
-
-$objDBConn = mysql_connect("localhost", "root", "0308");
-$bStatus = mysql_select_db("test", $objDBConn);
-$iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
+require ("./abstract.php");
+$db=new DBlayer;
+$db->login();
+$iRecordPerPage = 2;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
@@ -82,7 +81,6 @@ $sBoardDirection = "board_direction";
     }
 
 
-
     .board {
       padding:10px;
     }
@@ -118,7 +116,9 @@ $sBoardDirection = "board_direction";
 <body>
   <div class="container">
 <?php
-  require ("./BoardList_iframe_head.php");
+  require ("./top.php");
+  require ("./left.php");
+  require ("./center_start.php");
   ?>
 
 
@@ -134,16 +134,21 @@ $sBoardDirection = "board_direction";
             <th class="active tableHit">Hit</th>
           </tr>
   <?
+
+ 
   $board_num=0;
-  if(!$board_num||$board_num==0){
+
+$board_num=$_GET["boardNo"];
+
+  if($board_num==0){
     $sQuery  = "Select * From $sTableName Order By No Asc";
  
   }else{
     $sQuery  = "Select * From $sTableName where board_num = $board_num Order By No Asc";
 
   }
-   $objRecordSet = mysql_query($sQuery, $objDBConn);  
-  $iTotalRecord = mysql_num_rows($objRecordSet);
+  $objRecordSet = mysqli_query($db->link, $sQuery);  
+  $iTotalRecord = mysqli_num_rows($objRecordSet);
 
   $iNowPage = $_GET["iNowPage"];  
 
@@ -162,8 +167,8 @@ $sBoardDirection = "board_direction";
 
   for($iIdx = $iFirstRecordIdx; $iIdx < $iLastRecordIdx; $iIdx++) {
     
-    if(mysql_data_seek($objRecordSet, $iIdx)) {
-      $objRecord = mysql_fetch_array($objRecordSet, MYSQL_ASSOC);    
+   if(mysqli_data_seek($objRecordSet, $iIdx)) {
+      $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);   
       
       $iUno = $objRecord["no"]; 
       $sSubject = $objRecord["num"]; 
@@ -183,11 +188,13 @@ $sBoardDirection = "board_direction";
             <td>Hit</td>
           </tr>
 
+
+
     <?
     $iArticleNo--;  
   }        
   
-  mysql_free_result($objRecordSet);  
+   mysqli_free_result($objRecordSet); 
   ?>
 </table>
 <br>    
@@ -232,7 +239,7 @@ if($iNowBlock > 1) {
   $iPrevPage = $iFirstPage - 1;
   ?>
         <ul class="pagination" align="center">
-          <li><a href = './BoardList.php?iNowPage=<?=$iPrevPage?>'>&laquo;</a></li>         
+          <li><a href = './BoardList.php?iNowPage=<?=$iPrevPage?>&&boardNo=<?=$board_num?>'>&laquo;</a></li>         
   <?
 }      
 else{
@@ -243,11 +250,11 @@ else{
 for($i = $iFirstPage; $i <= $iLastPage; $i++) {
   if($i == $iNowPage) {
 ?>
-        <li class="active"><a href='./BoardList.php?iNowPage=<?=$i?>'><?=$i?></a></li>
+        <li class="active"><a href='./BoardList.php?iNowPage=<?=$i?>&&boardNo=<?=$board_num?>'><?=$i?></a></li>
 <?
   } else {
 ?> 
-          <li><a href='./BoardList.php?iNowPage=<?=$i?>'><?=$i?></a></li>
+          <li><a href='./BoardList.php?iNowPage=<?=$i?>&&boardNo=<?=$board_num?>'><?=$i?></a></li>
 <?
   }
 }
@@ -256,15 +263,18 @@ if($iNowBlock < $iTotalBlock) {
   $iNextPage = $iLastPage + 1;  
 ?>
         
-        <li><a href='./BoardList.php?iNowPage=<?=$iNextPage?>'>&raquo;</a></li>
+        <li><a href='./BoardList.php?iNowPage=<?=$iNextPage?>&&boardNo=<?=$board_num?>'>&raquo;</a></li>
         </ul>
 <?  
 } 
 ?>         
-
+<a href="http://www.example.dev/board/BoardInsert.php">&nbsp;&nbsp;write</a>
 
 <?php
-  require ("./BoardList_iframe_foot.php");
+ require ("./center_end.php");
+  require ("./right.php"); 
+  require ("./bottom.php");
+
   ?>
 
 
