@@ -120,7 +120,7 @@ $sTableName = "aa"
   <?php
   require ("./BoardList_iframe_head.php");
 
-include('abstract.php');
+//include('abstract.php');
 
 $no=$_GET['no'];
 $table="aa";

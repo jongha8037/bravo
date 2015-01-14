@@ -1,19 +1,19 @@
-  <?php
+<?php
 //ob_Start();
 //Session_Start();
 
 //include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
 //include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
 
-$objDBConn = mysql_connect("localhost", "root", "o1010l");
+$objDBConn = mysql_connect("localhost", "root", "0308");
 $bStatus = mysql_select_db("test", $objDBConn);
 $iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
-$sTableName = "aa"
+$sTableName = "aa";
+$sBoardDirection = "board_direction";
 ?>
-
 <html>
 <head>
   <title></title>
@@ -107,17 +107,26 @@ $sTableName = "aa"
       width: 60px;
       
     }
+
+    th {
+      text-align: center;
+    }
+
+
   </style>  
 </head>
 <body>
   <div class="container">
-  <?php
+<?php
   require ("./BoardList_iframe_head.php");
   ?>
 
-<table class="table table-hover" style="width:650px">
 
-          <tr align="center">   
+
+
+        <table class="table table-hover" style="width:650px" align="center">
+
+          <tr>   
             <th class="active tableNo">No.</th>
             <th class="success">Title</th>
             <th class="warning tableName" align="center">Name</th>
@@ -125,11 +134,15 @@ $sTableName = "aa"
             <th class="active tableHit">Hit</th>
           </tr>
   <?
-  
+  $board_num=0;
+  if(!$board_num||$board_num==0){
+    $sQuery  = "Select * From $sTableName Order By No Asc";
+ 
+  }else{
+    $sQuery  = "Select * From $sTableName where board_num = $board_num Order By No Asc";
 
-  $sQuery  = "Select * From $sTableName ";
-  $sQuery .= "Order By No Asc";      
-  $objRecordSet = mysql_query($sQuery, $objDBConn);  
+  }
+   $objRecordSet = mysql_query($sQuery, $objDBConn);  
   $iTotalRecord = mysql_num_rows($objRecordSet);
 
   $iNowPage = $_GET["iNowPage"];  
@@ -164,9 +177,7 @@ $sTableName = "aa"
 
     <tr align = "center"> 
             <td><?=$iArticleNo?></td>
-            <td align = "left">
-            <a href="http://www.example.dev/board/receive.php?no=<?=$iUno?>"><?=$sSubject?>
-            </a></td>
+            <td align = "left"><a href="http://www.example.dev/board/receive.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$sSubject?></a></td>
             <td><?=$sReplyDepth?></td>
             <td>...</td>
             <td>Hit</td>
@@ -179,6 +190,18 @@ $sTableName = "aa"
   mysql_free_result($objRecordSet);  
   ?>
 </table>
+<br>    
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -246,10 +269,13 @@ if($iNowBlock < $iTotalBlock) {
 
 
 
+
+
+
   </div>
 
 
-  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/respond.js"></script>
 
@@ -258,5 +284,13 @@ if($iNowBlock < $iTotalBlock) {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
