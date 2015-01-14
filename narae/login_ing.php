@@ -27,7 +27,7 @@ if(!empty($id) && !empty($pw)){
     if($id == $db_id && $pw == $db_pw){
         $_SESSION['is_login'] = true;
         $_SESSION['name'] = $db_name;
-        header('Location: ./session.php');
+        header('Location: ../board/BoardList.php');
         exit;
     }
 }

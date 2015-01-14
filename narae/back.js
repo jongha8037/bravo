@@ -2,7 +2,7 @@ var back = document.getElementById('back');
 var back_changepw = document.getElementById('back_changepw');
 
 function handler(event){
-		location.href='http://www.example.dev/login/session.php';
+		location.href='http://www.example.dev/board/BoardList.php';
 }
 
 if(back_changepw) {
