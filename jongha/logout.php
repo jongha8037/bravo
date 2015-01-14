@@ -1,0 +1,7 @@
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<?php
+ini_set("display_errors", "1");
+session_start();
+session_destroy();
+header('Location: ./login.html');
+?>

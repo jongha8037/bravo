@@ -1,11 +1,11 @@
-<?php
+  <?php
 //ob_Start();
 //Session_Start();
 
 //include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
 //include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
 
-$objDBConn = mysql_connect("localhost", "root", "0308");
+$objDBConn = mysql_connect("localhost", "root", "o1010l");
 $bStatus = mysql_select_db("test", $objDBConn);
 $iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
@@ -13,6 +13,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 $sTableName = "aa"
 ?>
+
 <html>
 <head>
   <title></title>
@@ -106,28 +107,15 @@ $sTableName = "aa"
       width: 60px;
       
     }
-
-
   </style>  
 </head>
 <body>
   <div class="container">
-    <header class="header">
-      <p class="title">School Board</p>
-    </header>
-    <div class="left">
-      <div class="left_bar">
-        <div class="board">board</div>
-        <div class="board">board1</div>
-        <div class="board">board2</div>
-        <div class="board">board3</div>
-      </div>
-    </div>
-    <div class="center">
-      <div class="center_bar">
+  <?php
+  require ("./BoardList_iframe_head.php");
+  ?>
 
-
-        <table class="table table-hover" style="width:650px">
+<table class="table table-hover" style="width:650px">
 
           <tr align="center">   
             <th class="active tableNo">No.</th>
@@ -176,7 +164,9 @@ $sTableName = "aa"
 
     <tr align = "center"> 
             <td><?=$iArticleNo?></td>
-            <td align = "left"><?=$sSubject?></td>
+            <td align = "left">
+            <a href="http://www.example.dev/board/receive.php?no=<?=$iUno?>"><?=$sSubject?>
+            </a></td>
             <td><?=$sReplyDepth?></td>
             <td>...</td>
             <td>Hit</td>
@@ -189,18 +179,6 @@ $sTableName = "aa"
   mysql_free_result($objRecordSet);  
   ?>
 </table>
-<br>    
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -262,29 +240,12 @@ if($iNowBlock < $iTotalBlock) {
 ?>         
 
 
+<?php
+  require ("./BoardList_iframe_foot.php");
+  ?>
 
 
 
-
-
-
-
-
-
-      </div>
-    </div>
-    <div class="right">
-      <div class="right_bar">
-
-aaa
-      </div>
-    </div>
-    <div class="footer">
-
-aaa
-
-
-    </div>
   </div>
 
 
@@ -297,13 +258,5 @@ aaa
 
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 
