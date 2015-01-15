@@ -129,7 +129,7 @@ $sBoardDirection = "board_direction";
   <tr>
     <td>Name</td>
     <td>
-      <input type = "text" name = "sID" value = "<?=$_SESSION['MEMBER_ID']?>" ReadOnly>
+      <input type = "text" name = "sName" value = "<?=$_SESSION['name']?>" ReadOnly>
     </td>
   </tr>  
   <tr>
@@ -167,19 +167,12 @@ $sBoardDirection = "board_direction";
   
     var objSubject = eval(document.all.sSubject);
     var objContent = eval(document.all.sContent);
-                
-    if(!objSubject.value) {
-       alert("title제목을 입력하세요!");
-       objSubject.focus();       
-                
-     }   
-     else if(!objContent.value) {
-       alert("content내용을 입력하세요!");
-       objContent.focus();       
-                
-     }   
-                            
-    else InsertForm.submit();
+             
+
+    if(!objSubject.value || !objContent.value){
+       alert("필드를 모두 입력하세요!");
+     }
+      InsertForm.submit();
   }
 </script>  
 

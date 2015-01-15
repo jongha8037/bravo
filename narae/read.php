@@ -7,11 +7,13 @@ session_Start();
 require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
+$no=$_GET['no'];
+$db->gethit($no);
 $iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
-$sTableName = "aa"
+$sTableName = "bcompiler_read(filehandle)"
 ?>
 
 <html>
@@ -120,23 +122,11 @@ $sTableName = "aa"
 
 
 
-$no=$_GET['no'];
-$table="aa";
 
+$table1="board";
+$table2="member";
 
-
-		$query="select * from ".$table." where no=".$no;
-	 $result1=mysqli_query($db->link, $query ) or die("wrong query"); #error
-		$tot=mysqli_num_rows($result1);
-		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
-
-		$db_no=$rows[no];
-		$db_num=$rows[num];
-		$db_con=$rows[con];
-		echo "no : ".$db_no."<br>";
-		echo "num : ".$db_num."<br>";
-		echo "con : ".$db_con. "<br>";
-
+$db->foreign_read($no, $table1, $table2);
  require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");  

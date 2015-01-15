@@ -10,7 +10,7 @@ $iRecordPerPage = 2;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
-$sTableName = "aa";
+$sTableName = "board";
 $sBoardDirection = "board_direction";
 ?>
 <html>
@@ -171,8 +171,8 @@ $board_num=$_GET["boardNo"];
       $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);   
       
       $iUno = $objRecord["no"]; 
-      $sSubject = $objRecord["num"]; 
-      $sReplyDepth = $objRecord["con"]; 
+      $sSubject = $objRecord["title"]; 
+      $sReplyDepth = $objRecord["id"]; 
 
       
     } else {
@@ -185,7 +185,7 @@ $board_num=$_GET["boardNo"];
             <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$sSubject?></a></td>
             <td><?=$sReplyDepth?></td>
             <td>...</td>
-            <td>Hit</td>
+            <td></td>
           </tr>
 
 
