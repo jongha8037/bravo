@@ -6,9 +6,9 @@ class DBlayer{
 	public $link;
 	public $point;
 	public $grade;
-	public $title=NULL;
-	public $content=NULL;
-	public $start_date=NULL;
+	public $db_id;
+	public $modify_title;
+	public $modify_content;
 	public $last_date=NULL;
 	public $board_num=NULL;
 	public $comment_num=0;
@@ -38,8 +38,16 @@ class DBlayer{
 		$this->link = mysqli_connect($mysqli_hostname, $mysqli_user, $mysqli_password) or die("internal error1");
 		mysqli_select_db($this->link, $mysqli_database) or die("internal error2");
 
-
 	}
+
+	public function read1($no){
+		$query="select * from board where no='".$no."'";
+		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
+		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
+
+		$db_id=$rows[id];
+		$this->db_id=$db_id;
+		}
 
 	public function read($no, $table){
 		$query="select * from ".$table." where no='".$no."'";
@@ -119,4 +127,35 @@ class DBlayer{
 		$query="update board set hit=hit+1 where no=".$no;
 		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
 	}
+
+	public function board_modify($no){
+		$query="select * from board where no='".$no."'";
+		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
+		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
+
+		$db_title=$rows[title];
+		$this->modify_title=$db_title;
+		$db_content=$rows[content];
+		$this->modify_content=$db_content;
+
+	}
+
+
+	public function update($ti, $co, $no){
+		$query="update board set title='".$ti."', content='".$co."' where no=$no";
+		$result1=mysqli_query($this->link, $query) or die("wrong query");
+
+	}
+
+
+	public function delete($no){
+		$query="delete from board where no=".$no.";";
+		$result1=mysqli_query($this->link, $query) or die("wrong query");
+
+	}
+
+
+
+	
+
 }

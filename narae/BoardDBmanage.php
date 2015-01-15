@@ -36,7 +36,21 @@ if($mode == "insert") {
 
   $sAlertMessage = var_dump($boardNum);
 }
-?>            
+
+if($mode=="modify") {
+  $no=$_POST['no'];
+  $sub=$_POST['subject'];
+  $con=$_POST['scontent'];
+  $db->update($sub, $con, $no);
+
+}
+
+if($mode=="delete") {
+ $no=$_POST['no'];
+ $db->delete($no);
+}
+
+?>
 <script>
   alert("<?=$sAlertMessage?>");
   location.href = "BoardList.php";
