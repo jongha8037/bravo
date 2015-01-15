@@ -10,8 +10,6 @@ $iRecordPerPage = 2;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
-$sTableName = "aa";
-$sBoardDirection = "board_direction";
 ?>
 <html>
 <head>
@@ -119,23 +117,80 @@ $sBoardDirection = "board_direction";
   require ("./top.php");
   require ("./left.php");
   require ("./center_start.php");
+  $boardNum = $_GET["boardNum"];
+
+  var_dump($boardNum)
   ?>
 
 
-<form name = "InsertForm" method = "post" action = "BoardDBPost.php">
-<input type = "hidden" name = "sMode" value = "Insert">
-<input type = "hidden" name = "sTableName" value = "TBL_BOARD_FREE">
+<form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
+<input type = "hidden" name = "mode" value = "insert">
+<input type = "hidden" name = "board" value = "board">
+<input type = "hidden" name = "board_num" value = <?=$boardNum?>>
 <table>
+<tr>
+  <!-- <td>board name</td><td>
+ --> 
+
+<?php
+
+
+$sBoardDirection = "board_direction";
+
+    $sQuery  = "Select * From $sBoardDirection"; 
+
+   $objRecordSet = mysqli_query($db->link, $sQuery);  
+
+
+  $BoardRecord = mysqli_num_rows($objRecordSet);
+  if($boardNum==0||!$boardNum){
+
+    printf("<td>board name</td><td>");
+
+    printf(" <select name=".'board_num'.">");
+    for($i=0;$i<$BoardRecord;$i++){
+  
+  if(mysqli_data_seek($objRecordSet, $i)) {
+      if($i!=0){
+      $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);    
+
+      $bname = $objRecord["board_name"]; 
+printf("<option value=%d>$bname</option>", $objRecord['board_num']);  
+}    
+
+
+      
+    }
+
+}
+    printf("</select>");
+}
+
+else{
+
+ 
+}
+
+?>
+
+
+
+
+
+      </td>
+  </tr> 
+
+
   <tr>
     <td>Name</td>
     <td>
-      <input type = "text" name = "sName" value = "<?=$_SESSION['name']?>" ReadOnly>
+      <input type = "text" name = "id" value = "<?=$_SESSION['name']?>" ReadOnly>
     </td>
-  </tr>  
+  </tr> 
   <tr>
     <td>Subject</td>
     <td>
-      <input type = "text" name = "sSubject">
+      <input type = "text" name = "subject">
     </td>
   </tr>  
   <tr>
@@ -143,9 +198,10 @@ $sBoardDirection = "board_direction";
     <td>
       
       <br>
-      <textarea cols = "50" rows = "20" name = "sContent"></textarea>
+      <textarea cols = "50" rows = "20" name = "scontent"></textarea>
     </td>
   </tr>  
+
 </table>
 </form>
 <br>
@@ -165,14 +221,27 @@ $sBoardDirection = "board_direction";
   
   function CheckInsertForm() {        
   
-    var objSubject = eval(document.all.sSubject);
-    var objContent = eval(document.all.sContent);
-             
+    var objSubject = eval(document.all.subject);
+    var objContent = eval(document.all.scontent);
+                /*
+  if(!objSubject.value) {
+       alert("제목을 입력하세요!");
+       objSubject.focus();       
+       return;         
+     }   
+     
+     if(!objContent.value) {
+       alert("내용을 입력하세요!");
+       objContent.focus();       
+       return;         
+     }   
+         alert("aa");  */                 
+    InsertForm.submit();
 
-    if(!objSubject.value || !objContent.value){
-       alert("필드를 모두 입력하세요!");
-     }
-      InsertForm.submit();
+
+
+   //    location.href = "BoardList.php";
+
+
   }
 </script>  
-

@@ -5,6 +5,8 @@ session_Start();
 //include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
 
 require ("./abstract.php");
+
+#if($_SESSION['id']==)
 $db=new DBlayer;
 $db->login();
 $no=$_GET['no'];
@@ -12,8 +14,6 @@ $db->gethit($no);
 $iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
-
-$sTableName = "bcompiler_read(filehandle)"
 ?>
 
 <html>
@@ -33,37 +33,41 @@ $sTableName = "bcompiler_read(filehandle)"
         height:50px;
         border-bottom:5px #bdc3c7;
         border-bottom-style: dashed;
-    }
+    } 
     .left {
         width:10%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+
     }
     .left_bar {
-        padding:10px;
-        height:100%;
+
+      
     }
     .center {
         width:70%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:600px;
+        border-right:2px solid orange;
+       border-left:2px solid orange;
     }
     .center_bar {
         padding:20px;
-        border-right:2px solid orange;
-        border-left:2px solid orange;
+    
+       
     }
     .right {
         width:20%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+  
     }
     .right_bar {
-        padding:10px;
-        height:100%;
+
+ 
     }
     .footer {
         clear:both;
@@ -82,7 +86,6 @@ $sTableName = "bcompiler_read(filehandle)"
         font-size: 30px;
         font-weight: bold;
     }
-
 
 
     .board {
@@ -109,6 +112,12 @@ $sTableName = "bcompiler_read(filehandle)"
       width: 60px;
       
     }
+
+    th {
+      text-align: center;
+    }
+
+    
   </style>  
 </head>
 <body>
@@ -118,8 +127,6 @@ $sTableName = "bcompiler_read(filehandle)"
   require ("./top.php");
   require ("./left.php");
   require ("./center_start.php");
-
-
 
 
 

@@ -6,12 +6,12 @@ Session_Start();
 require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
-$iRecordPerPage = 2;  /* 1페이지당 출력되는 레코드 수 */
+$iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
 $sTableName = "board";
-$sBoardDirection = "board_direction";
+//$sBoardDirection = "board_direction";
 ?>
 <html>
 <head>
@@ -27,7 +27,8 @@ $sBoardDirection = "board_direction";
     }
     .header {
         width:100%;
-        height:50px;
+        height:70px;
+        vertical-align: center;
         border-bottom:5px #bdc3c7;
         border-bottom-style: dashed;
     }
@@ -35,11 +36,12 @@ $sBoardDirection = "board_direction";
         width:10%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+
     }
     .left_bar {
-        padding:10px;
-        height:100%;
+
+      
     }
     .center {
         width:70%;
@@ -49,18 +51,20 @@ $sBoardDirection = "board_direction";
     }
     .center_bar {
         padding:20px;
+        padding-bottom:330px;
         border-right:2px solid orange;
-        border-left:2px solid orange;
+       border-left:2px solid orange;
     }
     .right {
         width:20%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+      border-left:2px solid orange;
     }
     .right_bar {
-        padding:10px;
-        height:100%;
+
+ 
     }
     .footer {
         clear:both;
@@ -140,11 +144,12 @@ $sBoardDirection = "board_direction";
 
 $board_num=$_GET["boardNo"];
 
+
   if($board_num==0){
-    $sQuery  = "Select * From $sTableName Order By No Asc";
+    $sQuery  = "Select * From $sTableName Order By no Asc";
  
   }else{
-    $sQuery  = "Select * From $sTableName where board_num = $board_num Order By No Asc";
+    $sQuery  = "Select * From $sTableName where board_num = $board_num Order By no Asc";
 
   }
   $objRecordSet = mysqli_query($db->link, $sQuery);  
@@ -163,16 +168,19 @@ $board_num=$_GET["boardNo"];
     $iLastRecordIdx = $iTotalRecord;
   }
     
-  $iArticleNo = $iTotalRecord - $iFirstRecordIdx;      
+  $table1 = $iTotalRecord - $iFirstRecordIdx;      
 
   for($iIdx = $iFirstRecordIdx; $iIdx < $iLastRecordIdx; $iIdx++) {
     
    if(mysqli_data_seek($objRecordSet, $iIdx)) {
       $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);   
       
-      $iUno = $objRecord["no"]; 
-      $sSubject = $objRecord["title"]; 
-      $sReplyDepth = $objRecord["id"]; 
+      $iUno = $objRecord["no"];
+      $table2 = $objRecord["title"]; 
+      $table3 = $objRecord["id"]; 
+      $table4 = $objRecord["last_date"]; 
+      $table5 = $objRecord["hit"]; 
+  
 
       
     } else {
@@ -181,40 +189,23 @@ $board_num=$_GET["boardNo"];
     ?>
 
     <tr align = "center"> 
-            <td><?=$iArticleNo?></td>
-            <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$sSubject?></a></td>
-            <td><?=$sReplyDepth?></td>
-            <td>...</td>
-            <td></td>
+            <td><?=$table1?></td>
+            <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$table2?></a></td>
+            <td><?=$table3?></td>
+            <td><?=$table4?></td>
+            <td><?=$table5?></td>
           </tr>
 
 
 
     <?
-    $iArticleNo--;  
+    $table1--;  
   }        
   
    mysqli_free_result($objRecordSet); 
   ?>
 </table>
 <br>    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <?
 
@@ -238,12 +229,14 @@ if($iLastPage > $iTotalPage) {
 if($iNowBlock > 1) {
   $iPrevPage = $iFirstPage - 1;
   ?>
+  <div align="center">
         <ul class="pagination" align="center">
           <li><a href = './BoardList.php?iNowPage=<?=$iPrevPage?>&&boardNo=<?=$board_num?>'>&laquo;</a></li>         
   <?
 }      
 else{
  ?>   
+ <div align="center">
     <ul class="pagination" align="center">
 <?
 }
@@ -265,10 +258,18 @@ if($iNowBlock < $iTotalBlock) {
         
         <li><a href='./BoardList.php?iNowPage=<?=$iNextPage?>&&boardNo=<?=$board_num?>'>&raquo;</a></li>
         </ul>
+        </div>
 <?  
-} 
+}
+  else{
+?>
+    </ul>
+    </div>
+<?
+  }
+ 
 ?>         
-<a href="http://www.example.dev/board/write.php">&nbsp;&nbsp;write</a>
+<div align="right"><a href="http://www.example.dev/board/write.php?boardNum=<?=$board_num?>"><button type="button" class="btn btn-danger">Write</button></a></div>
 
 <?php
  require ("./center_end.php");
@@ -283,21 +284,16 @@ if($iNowBlock < $iTotalBlock) {
 
 
   </div>
-
-
-  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/respond.js"></script>
 
 
 
 
+
 </body>
 </html>
-
-
-
-
 
 
 

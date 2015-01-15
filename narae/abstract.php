@@ -4,7 +4,8 @@ class DBlayer{
 	public $id;
 	public $db;
 	public $link;
-	public $hit;
+	public $point;
+	public $grade;
 	public $title=NULL;
 	public $content=NULL;
 	public $start_date=NULL;
@@ -39,22 +40,7 @@ class DBlayer{
 
 
 	}
-/*
-	public function select($id, $table){
-		$query="select * from ".$table." where no='".$id."'";
-		$result1=mysqli_query($link, $query) or die("wrong query"); #error
-		$tot=mysqli_num_rows($result1);
-		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
 
-		$db_no=$rows[no];
-		$db_title=$rows[title];
-		$db_id=$rows[id];
-		echo "no : ".$db_no."<br>";
-		echo "title : ".$db_title."<br>";
-		echo "id : ".$db_id. "<br>";
-	}
-
-*/
 	public function read($no, $table){
 		$query="select * from ".$table." where no='".$no."'";
 		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
@@ -108,12 +94,29 @@ class DBlayer{
 
 	}
 
+	public function member_point($id){
+		$query="select point from member where id='".$id."'";
+		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
+		$tot=mysqli_num_rows($result1);
+		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
+
+		$db_point=$rows[point];
+		$this->point=$db_point;
+	}
+
+	public function member_grade($id){
+		$query="select grade from member where id='".$id."'";
+		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
+		$tot=mysqli_num_rows($result1);
+		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
+
+		$db_grade=$rows[grade];
+		$this->grade=$db_grade;
+
+	}
+
 	public function gethit($no){
 		$query="update board set hit=hit+1 where no=".$no;
 		$result1=mysqli_query($this->link, $query) or die("wrong query"); #error
 	}
-
-
-
 }
-

@@ -5,7 +5,6 @@
 
 
 <?php
-
 $db=new DBlayer;
 $db->login();
 
@@ -18,7 +17,7 @@ $sBoardDirection = "board_direction";
 
   $BoardRecord = mysqli_num_rows($objRecordSet);
 
-$aaa=11;
+
 
 /*
 $objRecord=array();
@@ -41,8 +40,8 @@ for($i=0;$i<$BoardRecord;$i++){
 
 
 
-      $iUno = $objRecord["board_name"]; 
-      printf("<a href='http://www.example.dev/board/BoardList.php?boardNo=%d'><div class=".'board'.">$iUno</div></a>", $objRecord['board_num']);
+      $bname = $objRecord["board_name"]; 
+      printf("<a href='http://www.example.dev/board/BoardList.php?boardNo=%d'><div class=".'board'.">$bname</div></a>", $objRecord['board_num']);
 
 
   //    echo("<div class=".'board'.">$iUno</div>"); 
