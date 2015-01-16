@@ -13,6 +13,7 @@ $sContent = $_POST["scontent"];
 
 
 
+
 //$sSubject = addslashes($sSubject);
 //$sContent = addslashes($sContent);  
     
@@ -22,19 +23,27 @@ if($mode == "insert") {
 
   /* 글 쓰기 폼에 입력된 각각의 값들을 게시판 테이블의 새 레코드로 삽입 */
 
-  $sQuery  = "Insert Into board ";
-  $sQuery .= "    Values ";
+  $sQuery  = "Insert Into board Values";
   $sQuery .= "  ('','$sID','$sSubject', '$sContent', '$sDate','$sDate',0,$boardNum,0) ";
-//  $sQuery .= "  ('','$sID', '$sSubject', '$sContent', '$sDate',0, $boardNum,0) ";
-
 
   $bDBResult = mysqli_query($db->link, $sQuery); 
-  
-   $sQuery  = "Insert Into aa";
-  $sQuery .= "    Values ";
-  $sQuery .= "  (30,30,'Aa',30) ";
 
-  $sAlertMessage = var_dump($boardNum);
+
+
+    $sQuery  = "Select point From member where id='$sID'";
+  $objRecordSet = mysqli_query($db->link, $sQuery);  
+
+  $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);         
+      $iUno = $objRecord['point'];
+ 
+
+
+      $iUno = $iUno + 5;
+
+  $sQuery  = "Update member set point=$iUno where id='$sID'";
+    $bDBResult = mysqli_query($db->link, $sQuery); 
+
+  $sAlertMessage = "aaaaaaaaaaaaa";
 }
 
 if($mode=="modify") {
@@ -50,7 +59,7 @@ if($mode=="delete") {
  $db->delete($no);
 }
 
-?>
+?>            
 <script>
   alert("<?=$sAlertMessage?>");
   location.href = "BoardList.php";

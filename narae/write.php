@@ -18,14 +18,16 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
   <style type="text/css">
-    .container {
+      .container {
         max-width:1024px;
         line-height:1.5em;
         margin: auto;
     }
     .header {
         width:100%;
-        height:50px;
+        height:90px;
+        vertical-align: center;
+        padding-top: 18px;
         border-bottom:5px #bdc3c7;
         border-bottom-style: dashed;
     }
@@ -33,32 +35,36 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
         width:10%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+
     }
     .left_bar {
-        padding:10px;
-        height:100%;
+        margin-top:60px;
+      
     }
     .center {
         width:70%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:50px;
     }
     .center_bar {
         padding:20px;
+        padding-bottom:0px;
         border-right:2px solid orange;
-        border-left:2px solid orange;
+       border-left:2px solid orange;
+       min-height: 680px;
     }
     .right {
         width:20%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+  
     }
     .right_bar {
-        padding:10px;
-        height:100%;
+
+ 
     }
     .footer {
         clear:both;
@@ -72,15 +78,26 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
     }
 
     .title {
+
         color: #16a085;
-        padding:10px;
-        font-size: 30px;
+        padding:15px;
+        font-size: 35px;
         font-weight: bold;
     }
 
 
     .board {
-      padding:10px;
+      padding:15px;
+
+    }
+   
+
+    .topic {
+      padding-left: 15px;
+      margin-top:0px;
+      font-weight: bold;
+      color: #3C5927;
+
     }
 
     .tableNo{
@@ -109,6 +126,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
     }
 
 
+
   </style>  
 </head>
 <body>
@@ -119,11 +137,23 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   require ("./center_start.php");
   $boardNum = $_GET["boardNum"];
 
-  var_dump($boardNum)
+ $sQuery  = "Select board_name From board_direction where board_num=$board_num";
+
+  $objRecordSet = mysqli_query($db->link, $sQuery);  
+
+
+  if(!$objRecordSet){
+
+    $iUno = "전체 게시판";
+  }else{
+    $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+     $iUno = $objRecord['board_name'];
+  }      
   ?>
 
-
+ <h3 class="topic"><u><?=$iUno?></u></h3>  
 <form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
+
 <input type = "hidden" name = "mode" value = "insert">
 <input type = "hidden" name = "board" value = "board">
 <input type = "hidden" name = "board_num" value = <?=$boardNum?>>
@@ -184,7 +214,7 @@ else{
   <tr>
     <td>Name</td>
     <td>
-      <input type = "text" name = "id" value = "<?=$_SESSION['name']?>" ReadOnly>
+      <input type = "text" name = "id" value = "<?=$_SESSION['id']?>" ReadOnly>
     </td>
   </tr> 
   <tr>
@@ -198,17 +228,24 @@ else{
     <td>
       
       <br>
-      <textarea cols = "50" rows = "20" name = "scontent"></textarea>
+      <textarea cols = "60" rows = "20" name = "scontent"></textarea>
     </td>
   </tr>  
 
 </table>
+<br />
+<div align="center">
+<button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
+<button type = "reset" class="btn btn-danger">Reset</button>
+<button type = "submit" class="btn btn-danger">Save</button>
+
+</div>
 </form>
 <br>
-<input type = "button" value = "Save" OnClick = "javascript:CheckInsertForm();">
+<!--<input type = "button" value = "Save" OnClick = "javascript:CheckInsertForm();">
 <input type = "button" value = "Reset" OnClick = "javascript:InsertForm.reset();">
 <input type = "button" value = "Back" OnClick = "javascript:history.back();">
-
+-->
 <?php
  require ("./center_end.php");
   require ("./right.php"); 

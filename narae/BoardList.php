@@ -1,12 +1,10 @@
 <?php
 Session_Start();
 
-//include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
-//include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
 require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
-$iRecordPerPage = 3;  /* 1페이지당 출력되는 레코드 수 */
+$iRecordPerPage = 10;  /* 1페이지당 출력되는 레코드 수 */
 $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
 
@@ -27,8 +25,9 @@ $sTableName = "board";
     }
     .header {
         width:100%;
-        height:70px;
+        height:90px;
         vertical-align: center;
+        padding-top: 18px;
         border-bottom:5px #bdc3c7;
         border-bottom-style: dashed;
     }
@@ -40,27 +39,28 @@ $sTableName = "board";
 
     }
     .left_bar {
-
+        margin-top:60px;
       
     }
     .center {
         width:70%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:50px;
     }
     .center_bar {
         padding:20px;
-        padding-bottom:330px;
+        padding-bottom:0px;
         border-right:2px solid orange;
        border-left:2px solid orange;
+       min-height: 680px;
     }
     .right {
         width:20%;
         float:left;
         margin-top:10px;
         margin-bottom:30px;
-      border-left:2px solid orange;
+  
     }
     .right_bar {
 
@@ -78,15 +78,26 @@ $sTableName = "board";
     }
 
     .title {
+
         color: #16a085;
-        padding:10px;
-        font-size: 30px;
+        padding:15px;
+        font-size: 35px;
         font-weight: bold;
     }
 
 
     .board {
-      padding:10px;
+      padding:15px;
+
+    }
+   
+
+    .topic {
+      padding-left: 15px;
+      margin-top:0px;
+      font-weight: bold;
+      color: #3C5927;
+
     }
 
     .tableNo{
@@ -123,10 +134,43 @@ $sTableName = "board";
   require ("./top.php");
   require ("./left.php");
   require ("./center_start.php");
+
+  $board_num=0;
+
+$board_num=$_GET["boardNo"];
+$search_name=$_GET["searchName"];
+
+
+ $sQuery  = "Select board_name From board_direction where board_num=$board_num";
+
+  $objRecordSet = mysqli_query($db->link, $sQuery);  
+
+
+  if(!$objRecordSet){
+
+    $iUno = "전체 게시판";
+  }else{
+    $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+     $iUno = $objRecord['board_name'];
+  }         
+ 
+
+
   ?>
 
 
+        <h3 class="topic"><u><?=$iUno?></u></h3>  
+<div class="clearfix">
 
+
+<form class="navbar-form" role="search" style="float:right" method = "post" action = "search.php">
+      <div class="form-group">
+      <input type="hidden" name="boardNum" value=<?=$board_num?>>
+        <input type="text" class="form-control input-sm" placeholder="Name" name="what">
+      </div>
+      <button type="submit" class="btn btn-default btn-sm">Search</button>
+    </form>
+     </div>  
 
         <table class="table table-hover" style="width:650px" align="center">
 
@@ -139,19 +183,37 @@ $sTableName = "board";
           </tr>
   <?
 
- 
-  $board_num=0;
-
-$board_num=$_GET["boardNo"];
-
+  if($search_name){
+    
 
   if($board_num==0){
-    $sQuery  = "Select * From $sTableName Order By no Asc";
+    $sQuery  = "Select * From $sTableName where id='$search_name' Order By no Desc";
  
   }else{
-    $sQuery  = "Select * From $sTableName where board_num = $board_num Order By no Asc";
+    $sQuery  = "Select * From $sTableName where board_num = $board_num and id='$search_name' Order By no Desc";
 
   }
+
+
+
+  }else{
+
+    if($board_num==0){
+    $sQuery  = "Select * From $sTableName Order By no Desc";
+ 
+  }else{
+    $sQuery  = "Select * From $sTableName where board_num = $board_num Order By no Desc";
+
+  }
+
+
+  }
+
+
+
+
+
+
   $objRecordSet = mysqli_query($db->link, $sQuery);  
   $iTotalRecord = mysqli_num_rows($objRecordSet);
 
@@ -231,7 +293,7 @@ if($iNowBlock > 1) {
   ?>
   <div align="center">
         <ul class="pagination" align="center">
-          <li><a href = './BoardList.php?iNowPage=<?=$iPrevPage?>&&boardNo=<?=$board_num?>'>&laquo;</a></li>         
+          <li><a href = './BoardList.php?iNowPage=<?=$iPrevPage?>&&boardNo=<?=$board_num?>&&searchName=<?=$search_name?>'>&laquo;</a></li>         
   <?
 }      
 else{
@@ -243,11 +305,11 @@ else{
 for($i = $iFirstPage; $i <= $iLastPage; $i++) {
   if($i == $iNowPage) {
 ?>
-        <li class="active"><a href='./BoardList.php?iNowPage=<?=$i?>&&boardNo=<?=$board_num?>'><?=$i?></a></li>
+        <li class="active"><a href='./BoardList.php?iNowPage=<?=$i?>&&boardNo=<?=$board_num?>&&searchName=<?=$search_name?>'><?=$i?></a></li>
 <?
   } else {
 ?> 
-          <li><a href='./BoardList.php?iNowPage=<?=$i?>&&boardNo=<?=$board_num?>'><?=$i?></a></li>
+          <li><a href='./BoardList.php?iNowPage=<?=$i?>&&boardNo=<?=$board_num?>&&searchName=<?=$search_name?>'><?=$i?></a></li>
 <?
   }
 }
@@ -256,7 +318,7 @@ if($iNowBlock < $iTotalBlock) {
   $iNextPage = $iLastPage + 1;  
 ?>
         
-        <li><a href='./BoardList.php?iNowPage=<?=$iNextPage?>&&boardNo=<?=$board_num?>'>&raquo;</a></li>
+        <li><a href='./BoardList.php?iNowPage=<?=$iNextPage?>&&boardNo=<?=$board_num?>&&searchName=<?=$search_name?>'>&raquo;</a></li>
         </ul>
         </div>
 <?  
@@ -267,11 +329,18 @@ if($iNowBlock < $iTotalBlock) {
     </div>
 <?
   }
- 
+
 ?>         
 <div align="right"><a href="http://www.example.dev/board/write.php?boardNum=<?=$board_num?>"><button type="button" class="btn btn-danger">Write</button></a></div>
 
+
+
 <?php
+
+
+
+
+
  require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");

@@ -8,8 +8,7 @@ require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
 $no=$_GET['no'];
-$db->read1($no);
-$check_id=$db->db_id;
+$db->gethit($no);
 
 if(!($_SESSION['id']==$check_id)){
 $db->gethit($no);
@@ -26,17 +25,19 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
   <style type="text/css">
-    .container {
+       .container {
         max-width:1024px;
         line-height:1.5em;
         margin: auto;
     }
     .header {
         width:100%;
-        height:50px;
+        height:90px;
+        vertical-align: center;
+        padding-top: 18px;
         border-bottom:5px #bdc3c7;
         border-bottom-style: dashed;
-    } 
+    }
     .left {
         width:10%;
         float:left;
@@ -45,21 +46,21 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 
     }
     .left_bar {
-
+        margin-top:60px;
       
     }
     .center {
         width:70%;
         float:left;
         margin-top:10px;
-        margin-bottom:600px;
-        border-right:2px solid orange;
-       border-left:2px solid orange;
+        margin-bottom:50px;
     }
     .center_bar {
         padding:20px;
-    
-       
+        padding-bottom:0px;
+        border-right:2px solid orange;
+       border-left:2px solid orange;
+       min-height: 680px;
     }
     .right {
         width:20%;
@@ -84,15 +85,25 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
     }
 
     .title {
+
         color: #16a085;
-        padding:10px;
-        font-size: 30px;
+        padding:15px;
+        font-size: 35px;
         font-weight: bold;
     }
 
 
     .board {
-      padding:10px;
+      padding:15px;
+
+    }
+   
+
+    .topic {
+      padding-left: 15px;
+      margin-top:0px;
+      font-weight: bold;
+
     }
 
     .tableNo{
@@ -120,7 +131,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
       text-align: center;
     }
 
-    
+
   </style>  
 </head>
 <body>
@@ -138,15 +149,15 @@ $table2="member";
 
 $db->foreign_read($no, $table1, $table2);
 
-$db=new DBlayer;
-$db->login();
-$no=$_GET['no'];
+
 $db->read1($no);
 $check_id=$db->db_id;
+printf("<input type = ".'button'." value = ".'Back'." OnClick = ".'javascript:history.back();'.">");
+
 
 if($_SESSION['id']==$check_id){
   $db->read
-?>
+  ?>
 <form style="display: inline;" action="http://www.example.dev/board/modify.php" method="GET">
 <input type="submit" value="Modify" > 
 <input type = "hidden" name = "no" value = "<?=$no?>">
@@ -158,12 +169,9 @@ if($_SESSION['id']==$check_id){
 <input type = "hidden" name = "no" value = "<?=$no?>">
 </form>
 
-<?php
+  <?
+
 }
-
-
-
-
 
  require ("./center_end.php");
   require ("./right.php"); 
