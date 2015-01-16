@@ -137,7 +137,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   require ("./center_start.php");
   $boardNum = $_GET["boardNum"];
 
- $sQuery  = "Select board_name From board_direction where board_num=$board_num";
+ $sQuery  = "Select board_name From board_direction where board_num=$boardNum";
 
   $objRecordSet = mysqli_query($db->link, $sQuery);  
 

@@ -22,6 +22,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 <head>
   <title></title>
   <meta http-equiv="Content-type" content="text/html; charset=utf8">
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
   <style type="text/css">
@@ -208,6 +209,74 @@ else {
 
 }
 }
+?>
+
+<hr>
+
+<div class="post">
+    <!-- post will be placed here from db -->
+  </div>
+  <div class="comment-block">
+    <!-- comment will be apped here from db-->
+  </div>
+         
+  <!-- comment form -->
+  <form id="form" method="post">
+    <!-- need to supply post id with hidden fild -->
+    <input type="hidden" name="postno" value="<?=$no?>">
+    <label>
+      <span>ID *</span>
+            <input type = "text" name = "id" size="9" value = "<?=$_SESSION['id']?>" ReadOnly>
+    </label>
+    
+    <label>
+      <span>Your comment *</span>
+      <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Type your comment here...." required></textarea>
+    </label>
+    <input type="submit" id="submit" value="Submit">
+  </form>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  var form = $('form');
+  var submit = $('#submit');
+
+  form.on('submit', function(e) {
+    // prevent default action
+    e.preventDefault();
+    // send ajax request
+    $.ajax({
+      url: 'index.php',
+      type: 'POST',
+      cache: false,
+      data: form.serialize(), //form serizlize data
+      beforeSend: function(){
+        // change submit button value text and disabled it
+        submit.val('Submitting...').attr('disabled', 'disabled');
+      },
+      success: function(data){
+        // Append with fadeIn see http://stackoverflow.com/a/978731
+        var item = $(data).hide().fadeIn(800);
+        $('.comment-block').append(item);
+
+        // reset form and button
+        form.trigger('reset');
+        submit.val('Submit').removeAttr('disabled');
+      },
+      error: function(e){
+        alert(e);
+      }
+    });
+  });
+});
+</script>
+
+
+
+
+
+<?
  require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");  
