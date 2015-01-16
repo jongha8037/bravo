@@ -154,6 +154,13 @@ class DBlayer{
 
 	}
 
+	
+	public function check_grade($id){
+		$query="select grade from member where id='".$id."'";
+		$result1=mysqli_query($this->link, $query) or die("wrong query");
+		$rows=mysqli_fetch_array($result1, MYSQLI_ASSOC);
+		$this->check_grade=$rows[grade];
+	}
 
 
 	

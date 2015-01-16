@@ -8,8 +8,8 @@ require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
 $no=$_GET['no'];
-$db->gethit($no);
-
+$db->read1($no);
+$check_id=$db->db_id;
 if(!($_SESSION['id']==$check_id)){
 $db->gethit($no);
 }
@@ -154,10 +154,26 @@ $db->read1($no);
 $check_id=$db->db_id;
 printf("<input type = ".'button'." value = ".'Back'." OnClick = ".'javascript:history.back();'.">");
 
-
-if($_SESSION['id']==$check_id){
-  $db->read
+$id=$_SESSION['id'];
+$db->check_grade($id);
+$db->read;
+if(($_SESSION['id']==$check_id) or ($db->check_grade=='GOD')){
+  if(!($_SESSION['id']==$check_id)){
   ?>
+
+<form style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
+<input type="button" value="Delete" onclick="javascript:Deletedata.submit();">
+<input type = "hidden" name = "mode" value = "delete">
+<input type = "hidden" name = "board" value = "board">
+<input type = "hidden" name = "no" value = "<?=$no?>">
+</form>
+
+  <?
+}
+else if(!($db->check_grade=='GOD')){
+  ?>
+
+
 <form style="display: inline;" action="http://www.example.dev/board/modify.php" method="GET">
 <input type="submit" value="Modify" > 
 <input type = "hidden" name = "no" value = "<?=$no?>">
@@ -168,11 +184,30 @@ if($_SESSION['id']==$check_id){
 <input type = "hidden" name = "board" value = "board">
 <input type = "hidden" name = "no" value = "<?=$no?>">
 </form>
-
   <?
 
 }
 
+else {
+
+?>
+
+
+<form style="display: inline;" action="http://www.example.dev/board/modify.php" method="GET">
+<input type="submit" value="Modify" > 
+<input type = "hidden" name = "no" value = "<?=$no?>">
+</form>
+<form style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
+<input type="button" value="Delete" onclick="javascript:Deletedata.submit();">
+<input type = "hidden" name = "mode" value = "delete">
+<input type = "hidden" name = "board" value = "board">
+<input type = "hidden" name = "no" value = "<?=$no?>">
+</form>
+  <?
+
+
+}
+}
  require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");  

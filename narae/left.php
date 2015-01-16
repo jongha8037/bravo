@@ -50,6 +50,13 @@ for($i=0;$i<$BoardRecord;$i++){
     }
 
 }
+$id=$_SESSION['id'];
+$db->check_grade($id);
+if($db->check_grade=='GOD'){
+  ?>
+<input type="button" value="게시판 만들기">
+  <?php
+}
 
 ?>
 
