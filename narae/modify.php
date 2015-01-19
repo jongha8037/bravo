@@ -18,47 +18,54 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
   <style type="text/css">
-    .container {
+         .container {
         max-width:1024px;
         line-height:1.5em;
         margin: auto;
     }
     .header {
         width:100%;
-        height:50px;
+        height:90px;
+        vertical-align: center;
+        padding-top: 18px;
         border-bottom:5px #bdc3c7;
         border-bottom-style: dashed;
     }
     .left {
-        width:10%;
+        width:12%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+
     }
     .left_bar {
-        padding:10px;
-        height:100%;
+        margin-top:60px;
+      
     }
     .center {
         width:70%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:50px;
+        min-height: 680px;
     }
     .center_bar {
         padding:20px;
+        padding-bottom:0px;
         border-right:2px solid orange;
-        border-left:2px solid orange;
+       border-left:2px solid orange;
+       min-height: 680px;
     }
     .right {
-        width:20%;
+        width:18%;
         float:left;
         margin-top:10px;
-        margin-bottom:100px;
+        margin-bottom:30px;
+  
     }
     .right_bar {
-        padding:10px;
-        height:100%;
+
+ 
     }
     .footer {
         clear:both;
@@ -68,19 +75,30 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
         padding-bottom: 20px;
         padding-left: 20px;
         width: 100%;
-        height: 150px;
+        height: 140px;
     }
 
     .title {
+
         color: #16a085;
-        padding:10px;
-        font-size: 30px;
+        padding:15px;
+        font-size: 35px;
         font-weight: bold;
     }
 
 
     .board {
-      padding:10px;
+      padding:15px;
+
+    }
+   
+
+    .topic {
+      padding-left: 15px;
+      margin-top:0px;
+      font-weight: bold;
+      color: #3C5927;
+
     }
 
     .tableNo{
@@ -104,10 +122,47 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
       
     }
 
+    table {
+
+    }
+
     th {
       text-align: center;
     }
 
+    td {
+    }
+
+
+    .aa{
+      float: left;
+      padding-left: 13px;
+      padding-right: 96px;
+      font-size: 17px;
+      margin-top: 170px;
+    }
+     .bb{
+      float: left;
+       width: 475px;
+       margin: 0px;
+  
+       margin-bottom: 40px;
+    }
+    .cc{
+
+    }
+
+    .dd{
+      margin-top: 30px;
+            margin-bottom: 400px;
+
+    }
+    .font1 {
+    font-style:italic;
+}
+.color1 {
+    color: #1abc9c;
+}
 
   </style>  
 </head>
@@ -117,88 +172,108 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   require ("./top.php");
   require ("./left.php");
   require ("./center_start.php");
+  $boardNum = $_GET["boardNum"];
+  $boardNo = $_GET["no"];
 
 
-  $db=new DBlayer;
-  $db->login();
-  $no=$_GET['no'];
-  $db->board_modify($no);
+ $sQuery  = "Select board_name From board_direction where board_num=$boardNum";
 
-  $modititle=$db->modify_title;
-  $modicontent=$db->modify_content;
+  $objRecordSet = mysqli_query($db->link, $sQuery);  
 
+
+  if(!$objRecordSet){
+
+    $iUno = "전체 게시판";
+  }else{
+    $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+     $iUno = $objRecord['board_name'];
+  }      
+
+
+ $sQuery  = "Select * From board where no=$boardNo";
+ $objRecordSet = mysqli_query($db->link, $sQuery);
+ $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+     $a = $objRecord['title'];
+     $b = $objRecord['id'];
+     $c = $objRecord['start_date'];
+     $d = $objRecord['hit'];
+     $e = $objRecord['last_date'];
+     $f = $objRecord['content'];
+     $g = $objRecord['no'];
+
+
+  ?>
+
+ <h3 class="topic"><u><?=$iUno?></u></h3>  
+
+
+<form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
+
+<input type = "hidden" name = "mode" value = "modify">
+<input type = "hidden" name = "board" value = "board">
+<input type = "hidden" name = "modifyno" value = <?=$g?>>
+<input type = "hidden" name = "board_num" value = <?=$boardNum?>>
+<table class="table">
+<tr>
+
+<?php
+
+
+$sBoardDirection = "board_direction";
+
+    $sQuery  = "Select * From $sBoardDirection"; 
+
+   $objRecordSet = mysqli_query($db->link, $sQuery);  
+
+
+  $BoardRecord = mysqli_num_rows($objRecordSet);
+  
 
 ?>
 
-<form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
-<input type = "hidden" name = "mode" value = "modify">
-<input type = "hidden" name = "board" value = "board">
-<input type = "hidden" name = "no" value = "<?=$no?>">
-<table>
+
+
+
+
+      </td>
+  </tr> 
 
 
   <tr>
     <td>Name</td>
     <td>
-      <input type = "text" name = "id" value = "<?=$_SESSION['id']?>" ReadOnly>
+      <input type = "text" name = "id" class="form-control"  value = "<?=$b?>" ReadOnly>
     </td>
   </tr> 
   <tr>
     <td>Subject</td>
     <td>
-      <input type = "text" name = "subject" value="<?=$modititle?>">
+      <input type = "text" class="form-control" name = "subject" value = "<?=$a?>">
     </td>
   </tr>  
-  <tr>
-    <td>Content</td>
-    <td>
-      
-      <br>
-      <textarea cols = "50" rows = "20" name = "scontent"><?=$modicontent?></textarea>
-    </td>
-  </tr>  
+  </table>
+  <div>
+    <div class="aa">Content</div>
+    <div class="bb">
+      <textarea  class="form-control" rows = "17" name = "scontent"><?=$f?></textarea>
+    </div>
+  </div>  
 
-</table>
+
+<br />
+<div align="center">
+<button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
+<button type = "reset" class="btn btn-danger">Reset</button>
+<button type = "submit" class="btn btn-danger">Save</button>
+
+</div>
 </form>
 <br>
-<input type = "button" value = "Save" OnClick = "javascript:InsertForm.submit();">
-<input type = "button" value = "Reset" OnClick = "javascript:InsertForm.reset();">
-<input type = "button" value = "Back" OnClick = "javascript:history.back();">
 
 <?php
+
  require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");
 
   ?>
-
-<script>
-
-  /* 글 쓰기 입력 폼에 필수 입력 사항이 비어있는지 체크 */
-  
-  function CheckInsertForm() {        
-  
-    var objSubject = eval(document.all.subject);
-    var objContent = eval(document.all.scontent);
-                /*
-  if(!objSubject.value) {
-       alert("제목을 입력하세요!");
-       objSubject.focus();       
-       return;         
-     }   
-     
-     if(!objContent.value) {
-       alert("내용을 입력하세요!");
-       objContent.focus();       
-       return;         
-     }   
-         alert("aa");  */                 
-    InsertForm.submit();
-
-
-
-   //    location.href = "BoardList.php";
-
-
-  }
-</script>  

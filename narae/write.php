@@ -18,7 +18,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
   <style type="text/css">
-      .container {
+         .container {
         max-width:1024px;
         line-height:1.5em;
         margin: auto;
@@ -32,7 +32,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
         border-bottom-style: dashed;
     }
     .left {
-        width:10%;
+        width:12%;
         float:left;
         margin-top:10px;
         margin-bottom:30px;
@@ -47,6 +47,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
         float:left;
         margin-top:10px;
         margin-bottom:50px;
+        min-height: 680px;
     }
     .center_bar {
         padding:20px;
@@ -56,7 +57,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
        min-height: 680px;
     }
     .right {
-        width:20%;
+        width:18%;
         float:left;
         margin-top:10px;
         margin-bottom:30px;
@@ -74,7 +75,7 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
         padding-bottom: 20px;
         padding-left: 20px;
         width: 100%;
-        height: 150px;
+        height: 140px;
     }
 
     .title {
@@ -121,11 +122,47 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
       
     }
 
+    table {
+
+    }
+
     th {
       text-align: center;
     }
 
+    td {
+    }
 
+
+    .aa{
+      float: left;
+      padding-left: 13px;
+      padding-right: 96px;
+      font-size: 17px;
+      margin-top: 170px;
+    }
+     .bb{
+      float: left;
+       width: 475px;
+       margin: 0px;
+  
+       margin-bottom: 40px;
+    }
+    .cc{
+
+    }
+
+    .dd{
+      margin-top: 30px;
+            margin-bottom: 400px;
+
+    }
+    .font1 {
+    font-style:italic;
+}
+.color1 {
+    color: #1abc9c;
+}
 
   </style>  
 </head>
@@ -136,6 +173,85 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   require ("./left.php");
   require ("./center_start.php");
   $boardNum = $_GET["boardNum"];
+  $boardCreate = $_GET["board"];
+
+
+if($boardCreate=="boardcreate"){
+
+
+
+?>
+
+<form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
+
+<input type = "hidden" name = "mode" value = "boardcreate">
+
+ 
+ 
+ <h3 class="topic"><u>Board Name</u></h3> 
+
+<input type = "text" class="form-control dd" name = "boardname">
+
+
+<div align="center">
+<button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
+<button type = "reset" class="btn btn-danger">Reset</button>
+<button type = "submit" class="btn btn-danger">Create</button>
+
+</div>
+</form>
+
+
+
+
+
+
+
+<?
+
+}else if($boardCreate=="boarddelete"){
+
+
+?>
+
+<form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
+
+<input type = "hidden" name = "mode" value = "boarddelete">
+
+ 
+ 
+ <h3 class="topic"><u>Board Name</u></h3> 
+
+<input type = "text" class="form-control dd" name = "boardname">
+
+
+<div align="center">
+<button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
+<button type = "reset" class="btn btn-danger">Reset</button>
+<button type = "submit" class="btn btn-danger">Delete</button>
+
+</div>
+</form>
+
+
+
+
+
+
+
+<?
+
+
+
+
+
+
+
+
+
+
+
+}else{
 
  $sQuery  = "Select board_name From board_direction where board_num=$boardNum";
 
@@ -152,15 +268,15 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   ?>
 
  <h3 class="topic"><u><?=$iUno?></u></h3>  
+
+
 <form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
 
 <input type = "hidden" name = "mode" value = "insert">
 <input type = "hidden" name = "board" value = "board">
 <input type = "hidden" name = "board_num" value = <?=$boardNum?>>
-<table>
+<table class="table">
 <tr>
-  <!-- <td>board name</td><td>
- --> 
 
 <?php
 
@@ -175,9 +291,9 @@ $sBoardDirection = "board_direction";
   $BoardRecord = mysqli_num_rows($objRecordSet);
   if($boardNum==0||!$boardNum){
 
-    printf("<td>board name</td><td>");
+    printf("<td>board</td><td>");
 
-    printf(" <select name=".'board_num'.">");
+    printf(" <select  name=".'board_num'.">");
     for($i=0;$i<$BoardRecord;$i++){
   
   if(mysqli_data_seek($objRecordSet, $i)) {
@@ -214,25 +330,24 @@ else{
   <tr>
     <td>Name</td>
     <td>
-      <input type = "text" name = "id" value = "<?=$_SESSION['id']?>" ReadOnly>
+      <input type = "text" name = "id" class="form-control"  value = "<?=$_SESSION['id']?>" ReadOnly>
     </td>
   </tr> 
   <tr>
     <td>Subject</td>
     <td>
-      <input type = "text" name = "subject">
+      <input type = "text" class="form-control" name = "subject">
     </td>
   </tr>  
-  <tr>
-    <td>Content</td>
-    <td>
-      
-      <br>
-      <textarea cols = "60" rows = "20" name = "scontent"></textarea>
-    </td>
-  </tr>  
+  </table>
+  <div>
+    <div class="aa">Content</div>
+    <div class="bb">
+      <textarea  class="form-control" rows = "17" name = "scontent"></textarea>
+    </div>
+  </div>  
 
-</table>
+
 <br />
 <div align="center">
 <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
@@ -242,43 +357,11 @@ else{
 </div>
 </form>
 <br>
-<!--<input type = "button" value = "Save" OnClick = "javascript:CheckInsertForm();">
-<input type = "button" value = "Reset" OnClick = "javascript:InsertForm.reset();">
-<input type = "button" value = "Back" OnClick = "javascript:history.back();">
--->
+
 <?php
+}
  require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");
 
   ?>
-<script>
-
-  /* 글 쓰기 입력 폼에 필수 입력 사항이 비어있는지 체크 */
-  
-  function CheckInsertForm() {        
-  
-    var objSubject = eval(document.all.subject);
-    var objContent = eval(document.all.scontent);
-                /*
-  if(!objSubject.value) {
-       alert("제목을 입력하세요!");
-       objSubject.focus();       
-       return;         
-     }   
-     
-     if(!objContent.value) {
-       alert("내용을 입력하세요!");
-       objContent.focus();       
-       return;         
-     }   
-         alert("aa");  */                 
-    InsertForm.submit();
-
-
-
-   //    location.href = "BoardList.php";
-
-
-  }
-</script>  

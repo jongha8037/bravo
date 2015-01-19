@@ -31,13 +31,17 @@ $db->login();
     ?>
     </h4>
       <span><?php
-    echo date("Y-m-d h:i:s");
+    echo date("Y-m-d H:i:s");
     ?></span>
     <p><h4>
     <?php
     echo $comment;
     ?>
-    </h4></p><br>
+    </h4>
+    <form method="POST" action="./BoardDBmanage.php">
+    <input type="button" name="comment_delete" value="Delete">
+    <input type="hidden" name="mode" value="com_del">
+    </form></p><br>
   </div>
 </div>
 

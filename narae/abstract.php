@@ -13,6 +13,7 @@ class DBlayer{
 	public $commentcom=array();
 	public $commenttime=array();	
 	public $commentcount;
+	public $commentnum=array();
 
 	function __construct() {
 
@@ -159,7 +160,14 @@ class DBlayer{
 			$this->commentid[]=$rows["id"];
 			$this->commentcom[]=$rows["comment"];
 			$this->commenttime[]=$rows["date"];
+			$this->commentnum[]=$rows["num"];
 		}
 		$this->commentcount=count($this->commentid);
+	}
+
+	public function comment_delete($num){
+		$query="delete from comment where num=".$num;
+		$result1=mysqli_query($this->link, $query) or die("wrong query");
+
 	}
 }

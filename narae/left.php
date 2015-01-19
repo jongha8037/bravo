@@ -19,20 +19,6 @@ $sBoardDirection = "board_direction";
 
 
 
-/*
-$objRecord=array();
-while ($row = mysql_fetch_array($objRecordSet)) {
-    $objRecord[]=$row;
-}
-
-var_dump($objRecord);
-
-foreach ($objRecord as $set) {
-  printf('<a href="board.php?boardNo=%s">%s</a>', $set['id'], $set['name']);
-}
-
-*/
-
 for($i=0;$i<$BoardRecord;$i++){
   if(mysqli_data_seek($objRecordSet, $i)) {
       $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);    
@@ -54,22 +40,14 @@ $id=$_SESSION['id'];
 $db->check_grade($id);
 if($db->check_grade=='GOD'){
   ?>
-<input type="button" value="게시판 만들기">
+
+<a href="http://www.example.dev/board/write.php?board=boardcreate"><button type="button" class="btn btn-info" style="margin-top:100px">게시판 생성</button></a>
+<a href="http://www.example.dev/board/write.php?board=boarddelete"><button type="button" class="btn btn-info" style="margin-top:15px">게시판 삭제</button></a>
+
   <?php
 }
-
 ?>
 
- 
-
-
-
-
-
-
-
-
-       
-      </div>
+     </div>
     </div>
  

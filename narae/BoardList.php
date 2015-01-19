@@ -32,7 +32,7 @@ $sTableName = "board";
         border-bottom-style: dashed;
     }
     .left {
-        width:10%;
+        width:12%;
         float:left;
         margin-top:10px;
         margin-bottom:30px;
@@ -47,6 +47,7 @@ $sTableName = "board";
         float:left;
         margin-top:10px;
         margin-bottom:50px;
+        height: 680px;
     }
     .center_bar {
         padding:20px;
@@ -56,7 +57,7 @@ $sTableName = "board";
        min-height: 680px;
     }
     .right {
-        width:20%;
+        width:18%;
         float:left;
         margin-top:10px;
         margin-bottom:30px;
@@ -74,7 +75,7 @@ $sTableName = "board";
         padding-bottom: 20px;
         padding-left: 20px;
         width: 100%;
-        height: 150px;
+        height: 140px;
     }
 
     .title {
@@ -124,7 +125,12 @@ $sTableName = "board";
     th {
       text-align: center;
     }
-
+.font1 {
+    font-style:italic;
+}
+.color1 {
+    color: #1abc9c;
+}
 
   </style>  
 </head>
@@ -252,7 +258,7 @@ $search_name=$_GET["searchName"];
 
     <tr align = "center"> 
             <td><?=$table1?></td>
-            <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>">&nbsp;&nbsp;<?=$table2?></a></td>
+            <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>&&boardNum=<?=$board_num?>">&nbsp;&nbsp;<?=$table2?></a></td>
             <td><?=$table3?></td>
             <td><?=$table4?></td>
             <td><?=$table5?></td>
