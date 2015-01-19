@@ -9,20 +9,10 @@ class DBlayer{
 	public $db_id;
 	public $modify_title;
 	public $modify_content;
-	public $last_date=NULL;
-	public $board_num=NULL;
-	public $comment_num=0;
-	public $comment_content=NULL;
-	public $board_name=NULL;
-	public $nick=NULL;
-	public $pw=NULL;
-	public $a1=NULL;
-	public $a2=NULL;
-	public $a3=NULL;
-	public $a4=NULL;
-	public $array1=array();
-	public $array2=array();
-	public $array3=array();
+	public $commentid=array();
+	public $commentcom=array();
+	public $commenttime=array();	
+	public $commentcount;
 
 	function __construct() {
 
@@ -162,7 +152,14 @@ class DBlayer{
 		$this->check_grade=$rows[grade];
 	}
 
-
-	
-
+	public function showcomments($no){
+		$query="select * from comment where no=".$no." order by date asc, num asc";
+		$result1=mysqli_query($this->link, $query) or die("wrong query");
+		while ($rows=mysqli_fetch_array($result1, MYSQLI_ASSOC)){
+			$this->commentid[]=$rows["id"];
+			$this->commentcom[]=$rows["comment"];
+			$this->commenttime[]=$rows["date"];
+		}
+		$this->commentcount=count($this->commentid);
+	}
 }

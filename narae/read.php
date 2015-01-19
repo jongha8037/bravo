@@ -213,10 +213,33 @@ else {
 
 <hr>
 
-<div class="post">
-    <!-- post will be placed here from db -->
-  </div>
   <div class="comment-block">
+  <?php
+  $db->showcomments($no);
+
+  $com_count=$db->commentcount;
+  for($i=0; $i<$com_count; $i++){
+    $com_id[]=$db->commentid[$i];
+    $com_com[]= $db->commentcom[$i];
+    $com_time[]=$db->commenttime[$i];
+
+?>
+    <h4>
+    <?php
+    echo $com_id[$i];
+    ?></h4>
+    <span><?php
+    echo $com_time[$i];
+    ?></span>
+    <p><h4>
+    <?php
+    echo $com_com[$i];
+    ?>
+    </h4></p><br>
+
+<?php
+  }
+?>
     <!-- comment will be apped here from db-->
   </div>
          
@@ -247,7 +270,7 @@ $(document).ready(function(){
     e.preventDefault();
     // send ajax request
     $.ajax({
-      url: 'index.php',
+      url: 'comment.php',
       type: 'POST',
       cache: false,
       data: form.serialize(), //form serizlize data
