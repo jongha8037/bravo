@@ -301,7 +301,7 @@ if(!(($_SESSION['id']==$check_id) or ($db->check_grade=='GOD'))){
 //if(($_SESSION['id']==$check_id) or ($db->check_grade=='GOD')){
   if(!($_SESSION['id']==$check_id)){
   ?>
-<form id="ajax" style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
+<form style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
 <div align="center">
 <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
 <button type = "submit" class="btn btn-danger">Delete</button>
@@ -331,7 +331,7 @@ else if(!($db->check_grade=='GOD')){
 
 
 
-<form id="ajax" style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
+<form style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
 <div align="center">
 <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
 <a href="http://www.example.dev/board/modify.php?boardNum=<?=$boardNum?>&&no=<?=$boardNo?>"><button type="button" class="btn btn-danger">Modify</button></a>
@@ -364,7 +364,7 @@ else {
 
 
 </form>
-<form id="ajax" style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
+<form style="display: inline;" action="BoardDBmanage.php" name="Deletedata" method="POST">
 <div align="center">
 <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
 <a href="http://www.example.dev/board/modify.php?boardNum=<?=$boardNum?>&&no=<?=$boardNo?>"><button type="button" class="btn btn-danger">Modify</button></a>
@@ -397,7 +397,7 @@ else {
     $com_id[]=$db->commentid[$i];
     $com_com[]= $db->commentcom[$i];
     $com_time[]=$db->commenttime[$i];
-    $com_number[]=$db->commentnum[$i];
+     $com_number[]=$db->commentnum[$i];
 
 ?>
     <h4>
@@ -411,38 +411,154 @@ else {
     <?php
     echo $com_com[$i];
     ?>
+     
     </h4>
-    <form name="Deletecomment" action="BoardDBmanage.php" method="POST">
+
+
+
+  <form name="Deletecomment" action="BoardDBmanage.php" method="POST">
     <input type="hidden" name="comment_num" value="<?=$com_number[$i]?>">
     <input type="submit" id="comment_delete" value="Delete">
     <input type="hidden" name="mode" value="com_del">
     </form>
+
+<!--
+
+<form id="form1" method="post">
+   
+    <input type="hidden" name="postno" value="<?=$no?>">
+    <input type="hidden" name="comment_num" value="<?=$com_number[$i]?>">
+    
+        <input type="submit" id="submittt" value="modify">
+
+    
+  </form>
+-->
+
+
+
+
+
+<form id="form1" method="post">
+    <!-- need to supply post id with hidden fild -->
+    <input type="hidden" name="postno" value="<?=$no?>">
+    <input type="hidden" name="comment_no" value="<?=$com_number[$i]?>">
+   
+        <input type="submit" id="submitt1" value="Modify">
+
+  
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </p><br>
+
 <?php
   }
 ?>
     <!-- comment will be apped here from db-->
   </div>
          
+
+
   <!-- comment form -->
-  <form id="form" method="post">
+<form id="form" method="post">
     <!-- need to supply post id with hidden fild -->
     <input type="hidden" name="postno" value="<?=$no?>">
+    <input type="hidden" name="comment_no" value="<?=$com_number[$i]?>">
     <label>
       <span>ID *</span>
             <input type = "text" name = "id" size="9" value = "<?=$_SESSION['id']?>" ReadOnly>
     </label>
-        <input type="submit" id="submit" value="Submit">
+        <input type="submit" id="submitt" value="Submit">
 
     <label>
       <textarea name="comment" id="comment" cols="70" rows="3" placeholder="Type your comment here...." required></textarea>
     </label>
   </form>
+
+<!--
+  <div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">모달 제목</h4>
+      </div>
+      <div class="modal-body">
+        <p>적절한 본문…</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>
+<a data-toggle="modal" href="remote.html" data-target="#modal">Click me</a>
+
+
+
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>
+<script>  
+/*
+$('#myModal').modal(options);
+
+$('#myModal').modal({
+  keyboard: false
+})
+$('#myModal').modal('toggle')
+$('#myModal').modal('show')
+$('#myModal').modal('hide')
+
+$('#myModal').on('hidden.bs.modal', function () {
+  // do something…
+})
+*/
+
+
 $(document).ready(function(){
   var form = $('#form');
-  var submit = $('#submit');
+  var submit = $('#submitt');
+//  var form1 = $('#form1');
+//  var submit1 = $('#submittt');
 
   form.on('submit', function(e) {
     // prevent default action
@@ -471,9 +587,46 @@ $(document).ready(function(){
       }
     });
   });
+
+  /*
+  form1.on('submit1', function(e) {
+    // prevent default action
+    e.preventDefault();
+    // send ajax request
+    $.ajax({
+      url: 'comment11.php',
+      type: 'POST',
+      cache: false,
+      data: form.serialize(), //form serizlize data
+      beforeSend: function(){
+        // change submit button value text and disabled it
+        submit.val('Submitting...').attr('disabled', 'disabled');
+      },
+      success: function(data){
+        // Append with fadeIn see http://stackoverflow.com/a/978731
+        var item = $(data).hide().fadeIn(800);
+        $('#comment').append(item);
+
+        // reset form and button
+        form.trigger('reset');
+        submit.val('Submit').removeAttr('disabled');
+      },
+      error: function(e){
+        alert(e);
+      }
+    });
+  });
+
+*/
+
+
+
+
 });
 
 </script>
+
+
 
 
 

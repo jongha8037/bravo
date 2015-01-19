@@ -159,12 +159,25 @@ if($mode=="delete") {
  $db->delete($no);
 $sAlertMessage = "Delete";
 }
-$sAlertMessage = "Delete";
-
 
 if($mode=="com_del") {
   $com_num=$_POST['comment_num'];
+
   $db->comment_delete($com_num);
+
+
+  echo $com_num;
+/*
+$sQuery  = "Select * From board where no= $postno";
+
+  $objRecordSet = mysqli_query($db->link, $sQuery);  
+    $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+     $iUno = $objRecord['comment_num'];
+     $iUno = $iUno+1;
+
+  mysqli_query($db->link, "update board set comment_num=$iUno where no= $postno"); 
+*/
+
  echo("<script language='javascript'>history.go(-1);</script>"); 
 }
 ?>            

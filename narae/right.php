@@ -1,7 +1,14 @@
 <?php
 session_start();
 if(!isset($_SESSION['is_login'])){
-    header('Location: ../login/login.html');
+   
+  //  header('Location: ../login/login.html');
+    ?>
+      <script type="text/javascript">
+      alert("You do not have permission.");</script>
+<meta http-equiv="refresh" content="0; url=http://www.example.dev/login/login.html">
+    <?
+//header("location: http://www.naver.com");
 }
 
 ?>

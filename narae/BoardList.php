@@ -1,4 +1,6 @@
 <?php
+//if (!defined("_GNUBOARD_")) exit;
+
 Session_Start();
 
 require ("./abstract.php");
@@ -248,7 +250,7 @@ $search_name=$_GET["searchName"];
       $table3 = $objRecord["id"]; 
       $table4 = $objRecord["last_date"]; 
       $table5 = $objRecord["hit"]; 
-  
+      $table6 = $objRecord["comment_num"];
 
       
     } else {
@@ -257,9 +259,25 @@ $search_name=$_GET["searchName"];
     ?>
 
     <tr align = "center"> 
-            <td><?=$table1?></td>
-            <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>&&boardNum=<?=$board_num?>">&nbsp;&nbsp;<?=$table2?></a></td>
-            <td><?=$table3?></td>
+  <!--          <td><?=$table1?></td>-->
+  <td><?=$iUno?></td>
+
+<?
+            if($table6>0){
+?>
+                      <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>&&boardNum=<?=$board_num?>">&nbsp;&nbsp;<?=$table2?> [<?=$table6?>]</a></td>
+
+<?
+            }else{
+?>
+
+        <td align = "left"><a href="http://www.example.dev/board/read.php?no=<?=$iUno?>&&boardNum=<?=$board_num?>">&nbsp;&nbsp;<?=$table2?></a></td>
+
+<?
+            }
+
+?>
+             <td><?=$table3?></td>
             <td><?=$table4?></td>
             <td><?=$table5?></td>
           </tr>

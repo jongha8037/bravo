@@ -1,4 +1,5 @@
 <?php
+//if (!defined("_GNUBOARD_")) exit;
 Session_Start();
 
 //include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
