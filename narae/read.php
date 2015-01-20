@@ -191,7 +191,11 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
   <?php
   require ("./top.php");
   require ("./left.php");
-  require ("./center_start.php");
+?>
+   <div class="center">
+      <div class="center_bar">
+
+<?
 $boardNum = $_GET["boardNum"];
 $boardNo = $_GET["no"];
 
@@ -418,25 +422,24 @@ else {
 
   <form name="Deletecomment" action="BoardDBmanage.php" method="POST">
     <input type="hidden" name="comment_num" value="<?=$com_number[$i]?>">
+    <input type="hidden" name="postno" value="<?=$boardNo?>">
     <input type="submit" id="comment_delete" value="Delete">
     <input type="hidden" name="mode" value="com_del">
     </form>
 
+
+
 <!--
-
 <form id="form1" method="post">
-   
+     need to supply post id with hidden fild 
     <input type="hidden" name="postno" value="<?=$no?>">
-    <input type="hidden" name="comment_num" value="<?=$com_number[$i]?>">
-    
-        <input type="submit" id="submittt" value="modify">
+    <input type="hidden" name="comment_no" value="<?=$com_number[$i]?>">
+   
+        <input type="submit" id="submitt1" value="Modify">
 
-    
+  
   </form>
 -->
-
-
-
 
 
 <form id="form_mod">
@@ -468,16 +471,6 @@ else {
 
 
 
-
-
-
-
-
-
-
-
-
-
     </p><br>
 
 <?php
@@ -486,7 +479,6 @@ else {
     <!-- comment will be apped here from db-->
   </div>
          
-
 
   <!-- comment form -->
 <form id="form" method="post">
@@ -500,53 +492,21 @@ else {
         <input type="submit" id="submitt" value="Submit">
 
     <label>
-      <textarea name="comment" id="comment" cols="70" rows="3" placeholder="Type your comment here...." required></textarea>
+      <textarea name="comment" id="comment" cols="70" rows="5" placeholder="Type your comment here...." required></textarea>
     </label>
   </form>
 
-<!--
-  <div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">모달 제목</h4>
-      </div>
-      <div class="modal-body">
-        <p>적절한 본문…</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary">저장</button>
-      </div>
-    </div>
-  </div>
-</div>
--->
+
+
 
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>  
-/*
-$('#myModal').modal(options);
-
-$('#myModal').modal({
-  keyboard: false
-})
-$('#myModal').modal('toggle')
-$('#myModal').modal('show')
-$('#myModal').modal('hide')
-
-$('#myModal').on('hidden.bs.modal', function () {
-  // do something…
-})
-*/
-
 
 $(document).ready(function(){
   var form = $('#form');
-  var submit = $('#submitt');
-//  var form1 = $('#form1');
-//  var submit1 = $('#submittt');
+  var submit = $('#submit');
+  var form1 = $('#form1');
+  var submit1 = $('#submit1');
 
   form.on('submit', function(e) {
     // prevent default action
@@ -575,38 +535,15 @@ $(document).ready(function(){
       }
     });
   });
+
+
+
+
+
 });
 
-  /*
-  form1.on('submit1', function(e) {
-    // prevent default action
-    e.preventDefault();
-    // send ajax request
-    $.ajax({
-      url: 'comment11.php',
-      type: 'POST',
-      cache: false,
-      data: form.serialize(), //form serizlize data
-      beforeSend: function(){
-        // change submit button value text and disabled it
-        submit.val('Submitting...').attr('disabled', 'disabled');
-      },
-      success: function(data){
-        // Append with fadeIn see http://stackoverflow.com/a/978731
-        var item = $(data).hide().fadeIn(800);
-        $('#comment').append(item);
 
-        // reset form and button
-        form.trigger('reset');
-        submit.val('Submit').removeAttr('disabled');
-      },
-      error: function(e){
-        alert(e);
-      }
-    });
-  });
 
-*/
 $( "#modi_comment" ).click(function() {
   $( "#form_mod" ).attr({action:'BoardDBmanage.php', method:'post'}).submit();
   $("#comment_body").val('');
@@ -619,14 +556,14 @@ $( "#modi_comment" ).click(function() {
 
 
 
-
+ </div>
+    </div>
 
 
 
 <?
 
 
- require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");  
   ?>

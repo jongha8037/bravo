@@ -1,23 +1,18 @@
 <?php
-//if (!defined("_GNUBOARD_")) exit;
-
 Session_Start();
 
 require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
-$iRecordPerPage = 10;  /* 1페이지당 출력되는 레코드 수 */
-$iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
-
-
-$sTableName = "board";
-//$sBoardDirection = "board_direction";
+$iRecordPerPage = 10;
+$iPagePerBlock = 2;
 ?>
+
 <html>
 <head>
-  <title></title>
-  <meta http-equiv="Content-type" content="text/html; charset=utf8">
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<title></title>
+<meta http-equiv="Content-type" content="text/html; charset=utf8">
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
   <style type="text/css">
     .container {
@@ -141,7 +136,8 @@ $sTableName = "board";
 <?php
   require ("./top.php");
   require ("./left.php");
-  require ("./center_start.php");
+
+
 
   $board_num=0;
 
@@ -165,7 +161,8 @@ $search_name=$_GET["searchName"];
 
 
   ?>
-
+<div class="center">
+      <div class="center_bar">
 
         <h3 class="topic"><u><?=$iUno?></u></h3>  
 <div class="clearfix">
@@ -195,10 +192,10 @@ $search_name=$_GET["searchName"];
     
 
   if($board_num==0){
-    $sQuery  = "Select * From $sTableName where id='$search_name' Order By no Desc";
+    $sQuery  = "Select * From board where id='$search_name' Order By no Desc";
  
   }else{
-    $sQuery  = "Select * From $sTableName where board_num = $board_num and id='$search_name' Order By no Desc";
+    $sQuery  = "Select * From board where board_num = $board_num and id='$search_name' Order By no Desc";
 
   }
 
@@ -207,10 +204,10 @@ $search_name=$_GET["searchName"];
   }else{
 
     if($board_num==0){
-    $sQuery  = "Select * From $sTableName Order By no Desc";
+    $sQuery  = "Select * From board Order By no Desc";
  
   }else{
-    $sQuery  = "Select * From $sTableName where board_num = $board_num Order By no Desc";
+    $sQuery  = "Select * From board where board_num = $board_num Order By no Desc";
 
   }
 
@@ -259,7 +256,6 @@ $search_name=$_GET["searchName"];
     ?>
 
     <tr align = "center"> 
-  <!--          <td><?=$table1?></td>-->
   <td><?=$iUno?></td>
 
 <?
@@ -357,15 +353,14 @@ if($iNowBlock < $iTotalBlock) {
 ?>         
 <div align="right"><a href="http://www.example.dev/board/write.php?boardNum=<?=$board_num?>"><button type="button" class="btn btn-danger">Write</button></a></div>
 
-
+ </div>
+    </div>
 
 <?php
 
 
 
 
-
- require ("./center_end.php");
   require ("./right.php"); 
   require ("./bottom.php");
 
@@ -376,10 +371,10 @@ if($iNowBlock < $iTotalBlock) {
 
 
 
-  </div>
+</div>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/respond.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/respond.js"></script>
 
 
 

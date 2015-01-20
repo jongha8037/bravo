@@ -1,16 +1,11 @@
 <?php
-//if (!defined("_GNUBOARD_")) exit;
 Session_Start();
 
-//include "./Common.inc";  /* 게시판 관련 변수 셋팅된 모듈 파일 불러오기 */
-//include "./DBConn.inc";  /* DB 연결 모듈 파일 불러오기 */
 require ("./abstract.php");
 $db=new DBlayer;
 $db->login();
-$iRecordPerPage = 2;  /* 1페이지당 출력되는 레코드 수 */
-$iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
-
-
+$boardNum = $_GET["boardNum"];
+$boardNo = $_GET["no"];
 ?>
 <html>
 <head>
@@ -166,115 +161,85 @@ $iPagePerBlock = 2;  /* 1블럭당 출력되는 페이지 수 */
 }
 
   </style>  
-</head>
-<body>
-  <div class="container">
-<?php
-  require ("./top.php");
-  require ("./left.php");
-  require ("./center_start.php");
-  $boardNum = $_GET["boardNum"];
-  $boardNo = $_GET["no"];
 
 
- $sQuery  = "Select board_name From board_direction where board_num=$boardNum";
-
-  $objRecordSet = mysqli_query($db->link, $sQuery);  
 
 
-  if(!$objRecordSet){
-
-    $iUno = "전체 게시판";
-  }else{
-    $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
-     $iUno = $objRecord['board_name'];
-  }      
-
-
- $sQuery  = "Select * From board where no=$boardNo";
- $objRecordSet = mysqli_query($db->link, $sQuery);
- $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
-     $a = $objRecord['title'];
-     $b = $objRecord['id'];
-     $c = $objRecord['start_date'];
-     $d = $objRecord['hit'];
-     $e = $objRecord['last_date'];
-     $f = $objRecord['content'];
-     $g = $objRecord['no'];
-
-
-  ?>
-
- <h3 class="topic"><u><?=$iUno?></u></h3>  
-
-
-<form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
-
-<input type = "hidden" name = "mode" value = "modify">
-<input type = "hidden" name = "board" value = "board">
-<input type = "hidden" name = "modifyno" value = <?=$g?>>
-<input type = "hidden" name = "board_num" value = <?=$boardNum?>>
-<table class="table">
-<tr>
+  </head>
+  <body>
+    <div class="container">
 
 <?php
+require ("./top.php");
+require ("./left.php");
 
+$sQuery  = "Select board_name From board_direction where board_num=$boardNum";
+$objRecordSet = mysqli_query($db->link, $sQuery);  
 
-$sBoardDirection = "board_direction";
+if(!$objRecordSet){
+  $iUno = "전체 게시판";
+}else{
+  $objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+  $iUno = $objRecord['board_name'];
+}      
 
-    $sQuery  = "Select * From $sBoardDirection"; 
+$sQuery  = "Select * From board where no=$boardNo";
+$objRecordSet = mysqli_query($db->link, $sQuery);
+$objRecord = mysqli_fetch_array($objRecordSet, MYSQL_ASSOC);
+$a = $objRecord['title'];
+$b = $objRecord['id'];
+$c = $objRecord['start_date'];
+$d = $objRecord['hit'];
+$e = $objRecord['last_date'];
+$f = $objRecord['content'];
+$g = $objRecord['no'];
 
-   $objRecordSet = mysqli_query($db->link, $sQuery);  
-
-
-  $BoardRecord = mysqli_num_rows($objRecordSet);
-  
-
+$sQuery  = "Select * From board_direction"; 
+$objRecordSet = mysqli_query($db->link, $sQuery);  
+$BoardRecord = mysqli_num_rows($objRecordSet);
 ?>
+      <div class="center">
+        <div class="center_bar">
+          <h3 class="topic"><u><?=$iUno?></u></h3>  
 
-
-
-
-
-      </td>
-  </tr> 
-
-
-  <tr>
-    <td>Name</td>
-    <td>
-      <input type = "text" name = "id" class="form-control"  value = "<?=$b?>" ReadOnly>
-    </td>
-  </tr> 
-  <tr>
-    <td>Subject</td>
-    <td>
-      <input type = "text" class="form-control" name = "subject" value = "<?=$a?>">
-    </td>
-  </tr>  
-  </table>
-  <div>
-    <div class="aa">Content</div>
-    <div class="bb">
-      <textarea  class="form-control" rows = "17" name = "scontent"><?=$f?></textarea>
-    </div>
-  </div>  
-
-
-<br />
-<div align="center">
-<button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
-<button type = "reset" class="btn btn-danger">Reset</button>
-<button type = "submit" class="btn btn-danger">Save</button>
-
-</div>
-</form>
-<br>
+          <form name = "InsertForm" method = "post" action = "BoardDBmanage.php">
+            <input type = "hidden" name = "mode" value = "modify">
+            <input type = "hidden" name = "board" value = "board">
+            <input type = "hidden" name = "modifyno" value = <?=$g?>>
+            <input type = "hidden" name = "board_num" value = <?=$boardNum?>>
+     
+            <table class="table">
+              <tr>
+                <td>Name</td>
+                <td>
+                  <input type = "text" name = "id" class="form-control"  value = "<?=$b?>" ReadOnly>
+                </td>
+              </tr> 
+              <tr>
+                <td>Subject</td>
+                <td>
+                  <input type = "text" class="form-control" name = "subject" value = "<?=$a?>">
+                </td>
+              </tr>  
+            </table>
+            
+            <div>
+            <div class="aa">Content</div>
+            <div class="bb">
+              <textarea  class="form-control" rows = "17" name = "scontent"><?=$f?></textarea>
+            </div>
+            </div><br />
+            
+            <div align="center">
+            <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
+            <button type = "reset" class="btn btn-danger">Reset</button>
+            <button type = "submit" class="btn btn-danger">Save</button>
+            </div>
+          </form><br />
+        </div>
+      </div>
 
 <?php
-
- require ("./center_end.php");
-  require ("./right.php"); 
-  require ("./bottom.php");
-
-  ?>
+require ("./right.php"); 
+require ("./bottom.php");
+?>
