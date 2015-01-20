@@ -13,7 +13,7 @@ $sNo = $_POST["modifyno"];
 $no=$_POST['no'];
 $num=$_POST['postno'];
 $com_num=$_POST['comment_num'];
-$comment_num=$_POST['comment_no'];
+$comment_numm=$_POST['comment_no'];
 $comment_body=$_POST['comment_body'];
 $sDate = date("Y-m-d", time());
 
@@ -124,13 +124,18 @@ if($mode=="com_del"){
 
   mysqli_query($db->link, "update board set comment_num=$iUno where no= $num"); 
   echo("<script language='javascript'>history.go(-1);</script>"); 
+  exit;
 }
 
 
 if($mode=="com_mod"){
-  $sQuery  = "update comment set comment='".$comment_body."' where num=".$comment_num;
+  var_dump($com_num);
+
+  $sQuery  = "update comment set comment='".$comment_body."' where num=".$comment_numm;
   $bDBResult = mysqli_query($db->link, $sQuery); 
+  echo $comment_numm;
   echo("<script language='javascript'>history.go(-1);</script>"); 
+  exit;
 }
 
 

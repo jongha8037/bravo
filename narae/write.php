@@ -11,155 +11,8 @@ $db->login();
     <title></title>
     <meta http-equiv="Content-type" content="text/html; charset=utf8">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="./board.css" rel="stylesheet" />
 
-    <style type="text/css">
-.container {
-max-width:1024px;
-line-height:1.5em;
-margin: auto;
-}
-.header {
-width:100%;
-height:90px;
-vertical-align: center;
-padding-top: 18px;
-border-bottom:5px #bdc3c7;
-border-bottom-style: dashed;
-}
-.left {
-width:12%;
-float:left;
-margin-top:10px;
-margin-bottom:30px;
-
-}
-.left_bar {
-margin-top:60px;
-
-}
-.center {
-width:70%;
-float:left;
-margin-top:10px;
-margin-bottom:50px;
-min-height: 680px;
-}
-.center_bar {
-padding:20px;
-padding-bottom:0px;
-border-right:2px solid orange;
-border-left:2px solid orange;
-min-height: 680px;
-}
-.right {
-width:18%;
-float:left;
-margin-top:10px;
-margin-bottom:30px;
-
-}
-.right_bar {
-
-
-}
-.footer {
-clear:both;
-background-color: #2c3e50;
-color: white;
-padding-top:  25px;
-padding-bottom: 20px;
-padding-left: 20px;
-width: 100%;
-height: 140px;
-}
-
-.title {
-
-color: #16a085;
-padding:15px;
-font-size: 35px;
-font-weight: bold;
-}
-
-
-.board {
-padding:15px;
-
-}
-
-
-.topic {
-padding-left: 15px;
-margin-top:0px;
-font-weight: bold;
-color: #3C5927;
-
-}
-
-.tableNo{
-width: 50px;
-
-}
-.tableTitle{
-width: 100px;
-
-}
-.tableName{
-width: 100px;
-
-}
-.tableDate{
-width: 100px;
-
-}
-.tableHit{
-width: 60px;
-
-}
-
-table {
-
-}
-
-th {
-text-align: center;
-}
-
-td {
-}
-
-
-.aa{
-float: left;
-padding-left: 13px;
-padding-right: 96px;
-font-size: 17px;
-margin-top: 170px;
-}
-.bb{
-float: left;
-width: 475px;
-margin: 0px;
-
-margin-bottom: 40px;
-}
-.cc{
-
-}
-
-.dd{
-margin-top: 30px;
-margin-bottom: 400px;
-
-}
-.font1 {
-font-style:italic;
-}
-.color1 {
-color: #1abc9c;
-}
-
-    </style>  
   </head>
   <body>
     <div class="container">
@@ -180,7 +33,7 @@ if($boardCreate=="boardcreate"){
             <input type = "hidden" name = "mode" value = "boardcreate">
 
             <h3 class="topic"><u>Board Name</u></h3> 
-            <input type = "text" class="form-control dd" name = "boardname">
+            <input type = "text" class="form-control board-name" name = "boardname">
 
             <div align="center">
               <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
@@ -188,6 +41,8 @@ if($boardCreate=="boardcreate"){
               <button type = "submit" class="btn btn-danger">Create</button>
             </div>
           </form>
+        </div>
+      </div>
 
 <?
 }else if($boardCreate=="boarddelete"){
@@ -199,7 +54,7 @@ if($boardCreate=="boardcreate"){
             <input type = "hidden" name = "mode" value = "boarddelete">
 
             <h3 class="topic"><u>Board Name</u></h3> 
-            <input type = "text" class="form-control dd" name = "boardname">
+            <input type = "text" class="form-control board-name" name = "boardname">
 
             <div align="center">
               <button type = "button" class="btn btn-danger" OnClick = "javascript:history.back();">Back</button>
@@ -207,6 +62,8 @@ if($boardCreate=="boardcreate"){
               <button type = "submit" class="btn btn-danger">Delete</button>
             </div>
           </form>
+        </div>
+      </div>
 
 <?
 }else{
@@ -272,8 +129,8 @@ if($boardNum==0||!$boardNum){
             </table>
             
             <div>
-              <div class="aa">Content</div>
-              <div class="bb">
+              <div class="write-content1">Content</div>
+              <div class="write-content2">
                 <textarea  class="form-control" rows = "17" name = "scontent"></textarea>
               </div>
             </div><br />
