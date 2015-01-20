@@ -165,8 +165,6 @@ if($mode=="com_del") {
 
   $db->comment_delete($com_num);
 
-
-  echo $com_num;
 /*
 $sQuery  = "Select * From board where no= $postno";
 
@@ -178,6 +176,14 @@ $sQuery  = "Select * From board where no= $postno";
   mysqli_query($db->link, "update board set comment_num=$iUno where no= $postno"); 
 */
 
+ echo("<script language='javascript'>history.go(-1);</script>"); 
+}
+
+if($mode=="com_mod") {
+  $comment_num=$_POST['comment_no'];
+  $comment_body=$_POST['comment_body'];
+  $sQuery  = "update comment set comment='".$comment_body."' where num=".$comment_num;
+  $bDBResult = mysqli_query($db->link, $sQuery); 
  echo("<script language='javascript'>history.go(-1);</script>"); 
 }
 ?>            

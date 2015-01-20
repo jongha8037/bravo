@@ -439,14 +439,28 @@ else {
 
 
 
-<form id="form1" method="post">
+<form id="form_mod">
     <!-- need to supply post id with hidden fild -->
-    <input type="hidden" name="postno" value="<?=$no?>">
     <input type="hidden" name="comment_no" value="<?=$com_number[$i]?>">
-   
-        <input type="submit" id="submitt1" value="Modify">
-
-  
+    <input type="hidden" name="mode" value="com_mod">
+        <button type="button" data-toggle="modal" data-target="#myModal">Modify</button>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modify</h4>
+      </div>
+      <div class="modal-body">
+      <textarea name="comment_body" id="comment_body" cols="68" rows="3" placeholder="Type your comment here...." required></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="modi_comment" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
   </form>
 
 
@@ -509,32 +523,6 @@ else {
   </div>
 </div>
 -->
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>
-<a data-toggle="modal" href="remote.html" data-target="#modal">Click me</a>
-
-
 
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>  
@@ -587,6 +575,7 @@ $(document).ready(function(){
       }
     });
   });
+});
 
   /*
   form1.on('submit1', function(e) {
@@ -618,11 +607,13 @@ $(document).ready(function(){
   });
 
 */
-
-
-
-
+$( "#modi_comment" ).click(function() {
+  $( "#form_mod" ).attr({action:'BoardDBmanage.php', method:'post'}).submit();
+  $("#comment_body").val('');
 });
+
+
+
 
 </script>
 
